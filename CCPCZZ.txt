@@ -1,0 +1,274 @@
+(A)
+Given three positive integers $p_A,p_B,p_C$, Bobo challenges you to find out three infinite binary strings $A,B,C$ with period $p_A$, $p_B$ and $p_C$ respectively satisfying $A \oplus B = C$, or determine it is impossible to do so.
+Please refer to the Note section for the formal definition of period and exclusive or.
+**Input**
+The first line of the input contains a single integer $T$ ($1 \le T \le 10^4$), denoting the number of test cases. The description of the test cases follows.
+The first and the only line of each test case contains three integers $p_A$, $p_B$ and $p_C$ ($1 \le p_A,p_B,p_C \le 10^6$).
+It is guaranteed that the sum of $\max(p_A,p_B,p_C)$ over all test cases does not exceed $10^6$.
+**Output**
+For each test case, output "NO" (without quotes) in one line if no solution exists. Otherwise, output "YES" (without quotes) in one line. Then, output three binary strings of length $p_A$, $p_B$ and $p_C$ in three lines, denoting the first $p_A$, $p_B$, $p_C$ character(s) of the infinite strings $A$, $B$, $C$ respectively.
+You can output "YES" and "NO" in any case (for example, strings "yES", "yes", and "Yes" will all be recognized as a positive response).
+Example Input：
+2 3 6
+2 3 5
+Example Output：
+YES
+01
+011
+001110
+NO
+**Note**
+Let $s=s_1 s_2 s_3 \ldots$ and $t=t_1 t_2 t_3 \ldots$ be infinite binary strings.
+The period of $s$ is the smallest positive integer $k$ satisfying $s_i = s_{i+k}$ for all $i \ge 1$.
+The exclusive or of strings $s$ and $t$ is given by $s \oplus t$ satisfying $(s \oplus t)_i = s_i \oplus t_i$ for all $i \ge 1$.
+
+###
+
+(B)
+Bobo has been playing a puzzle called Rolling Stones, which takes place on an equilateral triangular board consisting of $n$ $(n\geq 2)$ rows and $n^2$ cells. Each cell on the board is labeled with a number from $1$ to $4$. Bobo also has a tetrahedral stone, with each face numbered from $1$ to $4$ (a tetrahedral dice), initially placed at the first cell in the first row of the board. The position of the stone is as follows: the face with the number $1$ is towards the left, the face with the number $2$ is towards the next row, the face with the number $3$ is towards the right, and the face with the number $4$ is on the bottom side.
+The goal of the puzzle is to roll the stone to a target cell under the following rules:
+
+- **Matching Numbers**: When the stone rests on a cell, the number on the cell must match the number on the stone's bottom face.
+- **Single Visit**: Each cell can only be visited once throughout the journey, including the starting and target cells.
+The stone rolls by tipping along an edge that touches the board, moving it to a neighboring cell. Given the board layout, the target cell, and the stone's initial orientation, Bobo wants to know: is it possible to reach the target cell following the rules? If possible, what is the minimum number of rolls required to reach the target?
+The illustration for a solution of the first sample test is given as follows.
+![]
+**Input**
+The first line contains an integer $n$ $(2\leq n\leq 100)$, denoting the size of the board.
+Then $n$ lines follows, with the $i$\-th $(1\leq i\leq n)$ line containing $2i-1$ numbers $a_{i,1},a_{i,2},\dots,a_{i,2i-1}$, where each $1\leq a_{i,j}\leq 4$ indicates the number on the $j$\-th cell from left to right in the $i$\-th row. It is guaranteed that $a_{1,1}=4$.
+Then another line follows, containing two integers $x,y$ $(2\leq x\leq n,1\leq y\leq 2x-1)$. Here, $(x,y)$ represents the target cell, located at the $y$\-th cell from left to right in the $x$\-th row.
+**Output**
+If there is no way to roll the stone to the target cell, output $-1$ in a line. Otherwise, output the minimum number of rolls to roll the stone to the target cell in a line.
+Example Input：
+3
+4
+3 2 3
+4 3 2 1 3
+3 1
+Example Output：
+6
+
+###
+
+(C)
+Bobo is exploring a set of lattice points on a two-dimensional plane. Initially, the set of points is defined as $S = \{(0,0),(A,0),(0,B),(A,B)\}$. Bobo's goal is to include a specific lattice point $(X,Y)$ in $S$. To achieve the goal, Bobo may perform the following operation:
+- Select two lattice points $P,Q \in S$ such that $\frac{P+Q}{2}$ is also a lattice point, and add $\frac{P+Q}{2}$ to $S$.
+Your task is to help Bobo find a sequence of operations that minimizes the number of steps to achieve the goal or determine if it is impossible to do so.
+**Input**
+The first line of the input contains two integers $A$ and $B$ ($0 \le A,B \le 10^9$), describing the parameters of the initial lattice points.
+The second line of the input contains two integers $X$ and $Y$ ($0 \le X \le A$, $0 \le Y \le B$), denoting the coordinates of the target lattice point.
+**Output**
+If it is impossible to achieve the goal, output $-1$ in one line. Otherwise, output a single integer $k$ ($0 \le k \le 10^5$) in one line, denoting the total number of operations to perform. Then $k$ lines follow. The $i$\-th line contains four integers $U_i,V_i,S_i,T_i$ ($0 \le U_i,V_i,S_i,T_i \le 10^9$), describing the lattice points $P=(U_i,V_i)$ and $Q=(S_i,T_i)$ chosen in the $i$\-th operation. If there exist multiple solutions, output any.
+Example Input1：
+2 2
+1 1
+Example Output1：
+1
+0 0 2 2
+Example Input2：
+8 8
+5 0
+Example Output2：
+3
+0 0 8 0
+4 0 8 0
+4 0 6 0
+Example Input3：
+8 6
+7 3
+Example Output3：
+3
+0 0 8 0
+4 0 8 0
+6 0 8 6
+
+###
+
+(F)
+Bobo is trapped in an infinite time loop of a peculiar day! Each day consists of exactly $k$ hours, and every day, $n$ tasks arrive for Bobo to complete.
+- The $i$\-th task of the day arrives at the beginning of the $a_i$\-th hour and requires $b_i$ hours of uninterrupted effort to finish.
+- Bobo works diligently and always follows a disciplined approach: whenever there are unfinished tasks, 、textbf{Bobo works on the earliest received unfinished task}.
+At the beginning of the first day, Bobo starts with no tasks.
+Your mission is to help Bobo answer $q$ queries. For the $i$\-th query, you are given $x_i$, the day on which a task is received, and $y_i$, the index of the task received on that day. Your goal is to determine the exact day and hour when Bobo will complete the $y_i$\-th taskof day $x_i$.
+**Input**
+The first line contains three space-separated integers, which are $n$ ($1 \leq n \leq 10^5$), $k$ ($1 \leq k \leq 10^8$), and $q$ ($1 \leq q \leq 10^5$), respectively.
+The next $n$ lines each contain two space-separated integers, where the $i$\-th line contains $a_i$ ($1 \leq a_i \leq k$) and $b_i$ ($1 \leq b_i \leq k$). It is guaranteed that $a_i$ is strictly monotonically increasing.
+Then $q$ lines follow, each containing two space-separated integers, where the $i$\-th line contains $x_i$ ($1 \leq x_i \leq 5 \times 10^5$) and $y_i$ ($1 \leq y_i \leq n$).
+**Output**
+Output $q$ lines, where the $i$\-th line outputs two space-separated integers $d_i$ and $h_i$, indicating that the task for the $i$\-th query is completed at the $h_i$\-th hour on the $d_i$\-th day.
+Example Input1:
+2 5 6
+1 1
+4 3
+1 1
+1 2
+2 1
+2 2
+3 1
+3 2
+Example Output1:
+1 1
+2 1
+2 2
+3 1
+3 2
+4 1
+Example Input2:
+3 10 5
+2 4
+3 1
+10 7
+2 2
+7 1
+4 3
+5 2
+28 3
+Example Output2:
+3 1
+8 10
+6 2
+6 7
+34 10
+
+###
+
+(G)
+Bobo is working with an integer sequence $a_1,a_2,\ldots,a_n$ of length $n$. He must process $q$ queries in order. Each query is of one of the following two types:
+- 1 $L$ $R$ $v$ ($1 \le L \le R \le n$, $0 \le v \le 2 \cdot 10^5$): for all $i \in [L,R]$, update $a_i \gets a_i + v$;
+- 2 $L$ $R$ ($1 \le L &lt; R \le n$, $R-L+1$ is even): determine if elements $a_L, a_{L+1}, \ldots, a_R$ can be divided into $(R-L+1)/2$ pairs of integers with the same sum.
+Your task is to help Bobo process these queries efficiently.
+**Input**
+The first line of input contains two integers $n$, $q$ ($1 \le n,q \le 2 \cdot 10^5$).
+The second line of input contains $n$ integers $a_1, a_2, \ldots, a_n$ ($0 \le a_i \le 2 \cdot 10^5$).
+Then $q$ lines follow. Each of the following lines contains a query, described in the statement.
+**Output**
+For each query of the second type, output "YES" (without quotes) in one line if elements $a_L, a_{L+1}, \ldots, a_R$ can be divided into $(R-L+1)/2$ pairs of integers with the same sum; otherwise, output "NO" (without quotes) in one line.
+You can output "YES" and "NO" in any case (for example, strings "yES", "yes", and "Yes" will all be recognized as a positive response).
+Example Input:
+8 4
+1 2 3 4 5 6 7 8
+2 1 8
+1 1 4 4
+2 1 6
+2 1 8
+Example Output:
+YES
+NO
+YES 
+
+###
+
+(K)
+Bobo is playing a game called **Brotato**. The game consists of $n$ levels, each of which he can either pass or fail. Each level has a probability $p$ of failure and a probability $1-p$ of passing. If Bobo fails a level, he must normally restart from the first level.
+
+Bobo is quite frustrated about the fact that each time he dies, he has to start over from the very beginning. Therefore, Bobo decided to cheat. Now, Bobo has $k$ special items that allow him to continue from the same level after a failure rather than restarting from the beginning.
+
+Given this setup, determine the minimum expected number of attempts for levels needed for Bobo to complete all $n$ levels.
+**Input**
+
+The first line contains two integers $n,k$ ($1 \le n\leq 10^5, 0 \le k\leq 10^9)$, denoting the number of levels and the number of items, respectively.
+
+The second line contains a number $p$ $(0&lt;p\leq 0.5)$. It is guaranteed that $p$ has at most $4$ decimal places.
+
+**It is guaranteed that $np\leq 20$.**
+**Output**
+
+Output a number in a line denoting the answer.
+
+Your answer is considered correct if its absolute or relative error doesn't exceed $10^{-9}$. Namely, if your answer is $a$, and the jury's answer is $b$, then your answer is accepted if $\frac{|b-a|}{\max(b,1)} \le 10^{-9}$.
+Example Input1:
+5 0
+0.5
+Example Output1:
+62.0000000000
+Example Input2:
+5 1
+0.5
+Example Output2:
+47.0000000000
+Example Input3：
+10000 0
+0.002
+Example Output3：
+247489700298.2536834329
+Example Input4：
+100000 10
+0.0002
+Example Output4：
+38767507133.2322179824
+
+###
+
+(L)
+Welcome to the China Collegiate Programming Contest (CCPC) Zhengzhou onsite! Bobo has noticed that the initials of "Zheng" and "Zhou" are both Z. This motivates him to study the well-known Z-order curve.
+
+To introduce the Z-order curve, we first introduce the Moser–de Bruijn sequence $(B_t)_{t \ge 0}$, the ordered sequence of numbers whose binary representation has nonzero digits only in the even positions. The first few terms of the Moser-de Bruijn sequence are $0, 1, 4, 5, 16, 17, 20, 21$.
+
+Each non-negative integer $z$ can be uniquely decomposed into the sum of $B_x$ and $2B_y$. Therefore, we can write down all natural numbers in an infinitely large table. The Z-order curve is then obtained by connecting all the numbers in numerical order.
+
+| ![](https://espresso.codeforces.com/3763e73d21e60b6c9037b14d5210dc6564fed8b9.png) |
+| --- |
+Illustration of Z-curve
+
+Bobo now challenges you with the following problem: For a given fragment extracted from the Z-curve from $L$ to $R$, find the smallest integer $l$ such that the Z-curve from $l$ to $l+R-L$ is identical to the given fragment (i.e., the curve from $l$ to $l+R-L$ can be obtained by translating the curve from $L$ to $R$).
+
+**Please note that in this problem, the curve is directed. Specifically, the curve from $1$ to $2$ is NOT identical to the curve from $3$ to $4$.**
+**Input**
+
+The first line of the input contains a single integer $T$ ($1 \le T \le 100$), denoting the number of test cases.
+
+The first and only line of each test case contains two integers $L$ and $R$ ($0 \le L &lt; R \le 10^{18}$).
+**Output**
+
+For each test case, output the answer in one line.
+Example Input1:
+4
+17 20
+0 63
+38 40
+998244353998244353 998244853998244853
+Example Output1:
+1
+0
+6
+2145186925057
+**Note**
+
+The following figure illustrates the Z-curve for the first and third test cases in the sample.
+
+| ![](https://espresso.codeforces.com/709824a4ad98c5006c72824943a94018c45ea03d.png) |
+| --- |
+Illustration of test cases in the sample (red: test case 1, green: test case 3)
+
+###
+
+(M)
+Bobo wants to use a rejection sampling algorithm to construct a random set $T\subset \{1,2,\dots,n\}$ of size $k$. For parameters $p_1,p_2,...,p_n$ $(0\leq p_i\leq 1)$ and integer $k$, the rejection sampler is defined as follows:
+
+1. Initialize $T \gets \emptyset$;
+2. For each $i$ $(1\leq i\leq n)$, add $i$ into $T$ with probability $p_i$;
+3. Output $T$ if the size of $T$ is exactly $k$; otherwise, repeat the process.
+
+Now you are given integers $a_1,a_2,...,a_n$ and $k$. Bobo needs to set the parameters $p_1,p_2,\ldots,p_n$ satisfying
+
+- $\sum_{i=1}^n p_i=k$;
+- for all $S\subseteq \{1,2,\cdots, n\}$ such that $|S|=k$, the probability that the rejection sampler outputs $S$ is proportional to $\prod_{i \in S} a_i$.
+
+Your task is to find out the parameters $p_1,p_2,\dots,p_n$ for Bobo. It is guaranteed that such parameters exist and **are unique**. Your answer will be considered correct if the absolute error of each $p_i$ doesn't exceed $10^{-6}$ compared to the unique answer.
+**Input**
+
+The first line of the input contains two integers $n$ and $k$ ($2 \le n \le 10^5$, $1 \le k \le n-1$).
+
+The second line of the input contains $n$ integers $a_1,a_2,\ldots,a_n$ ($1 \le a_i \le 10^9$).
+**Output**
+
+Output $n$ lines. The $i$\-th line contains a single real number $p_i$.
+
+Your answer is considered correct if the absolute error of each parameter does not exceed $10^{-6}$. Namely, if your answer is $a$, and the jury's answer is $b$, then your answer is accepted if $|b-a| \le 10^{-6}$ for all parameters.
+Example Input1:
+3 2
+5 5 5
+Example Output1:
+0.666666666667
+0.666666666667
+0.666666666667 

@@ -1,0 +1,408 @@
+(B)
+Betty has a bracket sequence $s$ of length $n$, which consists of eight types of brackets: "()\[\]{}<>". Additionally, she has $m$ sub-bracket sequences, and the $i$\-th sub-bracket sequence $t_i$ is the sequence formed by concatenating the characters from the $l_i$\-th to the $r_i$\-th position of $s$, i.e., $t_i = s_{l_i}s_{l_i+1} \cdots s_{r_i}$.
+Betty wants to know, by taking out several pairs from these $m$ sub-bracket sequences and concatenating sequences in the same pair, how many valid bracket sequences$^\dagger$ can be formed at most? Formally, you need to find as many pairs $(a_i, b_i)$ as possible such that:
+1.  For any integer $x$ from $1$ to $m$, the sum of its occurrences in $a$ and its occurrences in $b$ should be no larger than $1$.
+2.  For any pair $(a_i, b_i)$, $t_{a_i}t_{b_i}$ is a valid bracket sequence$^\dagger$.
+$^\dagger$ A bracket sequence $x$ is valid if and only if it satisfies one of the following conditions:
+-   $|x| = 0$, i.e., $x$ is an empty string.
+-   $x = LyR$, where $y$ is a valid bracket sequence, and $L$, $R$ are left and right brackets of the same type (i.e., $L=$ "(" and $R=$ ")", or $L=$ "\[" and $R=$ "\]", or $L=$ "{" and $R=$ "}", or $L=$ "<" and $R=$ "\>").
+-   $x = y_1y_2$, where both $y_1$ and $y_2$ are valid bracket sequences.
+
+**Input**
+Each test file contains multiple test cases. The first line contains the number of test cases $T$ ($1 \leq T \leq 10^4$). The description of the test cases follows.
+The first line contains two integers $n$ and $m$ ($1 \leq n, m \leq 5 \times 10^5$), which represent the length of $s$ and the number of sub-bracket sequences, respectively.
+The second line contains a string $s$ ($|s| = n$), which consists only of the eight brackets "()\[\]{}<>".
+The next $m$ lines each contain two integers $l_i$ and $r_i$ ($1 \leq l_i \leq r_i \leq n$).
+For each test file, it is guaranteed that the sum of $n$ over all test cases does not exceed $5 \times 10^5$, and the sum of $m$ over all test cases does not exceed $5 \times 10^5$.
+
+**Output**
+For each test case, output a single integer on a new line, representing the maximum number of valid bracket sequences that can be obtained by concatenating pairs of sub-bracket sequences.
+
+Example Input1：
+8 1
+()[]{}<>
+3 6
+Example Output1：
+0
+
+Example Input2：
+2 6
+)(
+1 1
+1 1
+1 1
+2 2
+2 2
+2 2
+Example Output2：
+3
+
+**Note**
+In the first test case, $t_1=$ "\[\]{}". Although $t_1$ is already a valid bracket sequence, there are no other sub-bracket sequences that can be paired with it, so the output is $0$.
+In the second test case, there are six sub-bracket sequences containing three "(" and three ")", which can be used to form three valid bracket sequences "()". Therefore, the output should be $3$.
+In the third test case, no valid bracket sequences can be formed.
+In the fourth test case, one possible matching is $t_1t_2$: "{}««" + "»»", and $t_4t_5$: "{}" + "{()}".
+
+###
+
+(C)
+The pirates have just seized a giant gold coin!
+To determine the ownership of this gold coin, they decided to select the owner using the following method:
+Let the current number of remaining pirates be $n$. The pirates line up in a queue, and the pirates at positions $1, 1+k, 1+2k, \dots, 1+(\lceil\frac{n}{k}\rceil - 1) k$ are eliminated. This operation is repeated until only one pirate remains. The final remaining pirate will receive the gold coin.
+Charlie is the smartest among the pirates. He wants to know where he should stand initially to be the last pirate remaining and win the coin.
+
+**Input**
+Each test file contains multiple test cases. The first line contains the number of test cases $T$ ($1 \leq T \leq 100$). The description of the test cases follows.
+The first line of each test case contains two integers $n$ and $k$ ($2 \leq n, k \leq 10^{12}$), representing the initial number of pirates and the parameter used for elimination.
+For each test file, it is guaranteed that the sum of $n$ over all test cases does not exceed $10^{12}$, and the sum of $k$ over all test cases does not exceed $10^{12}$.
+
+**Output**
+For each test case, output a single integer on a new line, indicating the position of the pirate who will ultimately receive the gold coin in the initial queue.
+
+Example Input1：
+6 2
+Example Output1：
+4
+
+Example Input2：
+1919810
+Example Output2：
+1919805
+
+**Note**
+For the first test case in the example, the positions of the remaining pirates in the original sequence after each round are:
+-   Initial state: $1, 2, 3, 4, 5, 6$.
+-   After the first round: $2, 4, 6$.
+-   After the second round: $4$.
+For the second test case in the example, the positions of the remaining pirates in the original sequence after each round are:
+-   Initial state: $1, 2, 3, 4, 5, 6, 7, 8$.
+-   After the first round: $2, 3, 5, 6, 8$.
+-   After the second round: $3, 5, 8$.
+-   After the third round: $5, 8$.
+-   After the fourth round: $8$.
+
+###
+
+(D)
+David has just obtained $n$ Russian nesting dolls of distinct sizes. He arranges these dolls in a row from left to right, where the $i$\-th position contains a doll of size $a_i$.
+Let the size of the smallest doll in the $i$\-th position be $l_i$, and the size of the largest one be $r_i$. Dolls over two adjacent positions $i$ and $i+1$ can be merged if and only if $r_i &lt; l_{i+1}$ or $r_{i+1} &lt; l_i$. The new nesting doll will contain all the dolls from the original $i$\-th and $i+1$\-th positions and will be placed in the $i$\-th position. All dolls in positions greater than $i+1$ will shift left by one position to fill the gap.
+For example, when $n=4, a=[2,1,4,3]$, David can:
+1.  Merge the dolls in positions $1$ and $2$. Now the remaining dolls have sizes $[(1,2), (4), (3)]$.
+2.  Merge the dolls in positions $2$ and $3$. Now the remaining dolls have sizes $[(1,2), (3,4)]$.
+3.  Merge the dolls in positions $1$ and $2$. Now all the dolls have been merged into one position.
+How many merge operations at most can David perform under an optimal strategy?
+
+**Input**
+Each test file contains multiple test cases. The first line contains the number of test cases $T$ ($1 \leq T \leq 10^4$). The description of the test cases follows.
+The first line of each test case contains an integer $n$ ($1 \leq n \leq 10^5$), representing the number of nesting dolls.
+The second line contains $n$ integers $a_1, a_2, \dots, a_n$ ($1 \leq a_i \leq n$, $\forall i \neq j, a_i \neq a_j$), representing the initial sizes of the dolls in each position.
+For each test file, it is guaranteed that the sum of $n$ over all test cases does not exceed $10^5$.
+
+**Output**
+For each test case, output a single integer on a new line, representing the maximum number of merge operations that can be performed.
+
+Example Input1：
+4
+2 1 4 3
+Example Output1：
+3
+Example Input2：
+4
+1 4 2 3
+Example Output2：
+3
+Example Input3：
+6
+2 5 1 3 6 4
+Example Output3：
+4
+
+###
+
+(E)
+This is an interactive problem.
+Emily has a tree containing $n$ nodes, where the weight of the node numbered $i$ is $w_i$. Node $1$ is the root node, and the weight of the root node is $0$.
+Emily wants you to guess the weight of each node. Specifically, you can make at most $n$ queries, with the $i$\-th query containing two integers $u_i$ and $v_i$. If the simple path from $u_i$ to $v_i$ contains exactly $k$ edges, Emily will tell you the bitwise XOR$^{\dagger}$ of the weights of all the nodes on the simple path from node $u_i$ to node $v_i$ (including the endpoints). Otherwise, Emily will respond with "-1", indicating that she does not want to answer that question. Emily is very busy, so she will not start answering until you have asked all your questions.
+Of course, you may not be able to guess the weights of all nodes with no more than $n$ queries for some cases. In such cases, you should not make any queries and instead directly tell Emily that it is impossible.
+$^{\dagger}$The bitwise XOR operation refers to the addition of each bit of two binary numbers under modulo $2$. For example: $(0011)_2$ $\oplus$ $(0101)_2$ $=$ $(0110)_2$.
+
+
+**Input**
+There is only one test case in each test file.
+The first line contains two integers $n$ and $k$ ($2 \leq n \leq 250$, $1 \leq k \leq n-1$), representing the number of nodes in the tree and a parameter mentioned in the query.
+The next $n-1$ lines each contain two integers $x_i$ and $y_i$ ($1 \leq x_i, y_i \leq n$), indicating that there is an edge between nodes $x_i$ and $y_i$.
+It is guaranteed that all edges form a tree, and the correct answer satisfies $0 \leq w_i &lt; 2^{30}$.
+
+**Interaction**
+First, you need to determine whether it is possible to guess the weights of all nodes within $n$ queries. If not, your program should output "No" and exit immediately. Otherwise, your program should output "Yes" and proceed to querying. You can output the answer in any case (upper or lower). For example, the strings "yEs", "yes", "Yes", and "YES" will be recognized as positive responses.
+To make a query, output **all** your $q$ queries **at once** in the format "? $q$ $u_1$ $v_1$ $u_2$ $v_2$ $\dots$ $u_q$ $v_q$" ($1 \leq q \leq n$, $1 \leq u_i, v_i \leq n$). After flushing your output, your program should read a line containing $q$ integers. The $i$\-th integer represents the response to the $i$\-th query.
+To guess the weights, output your guess in the format "! $w_2$ $w_3$ $\dots$ $w_n$" ($0 \leq w_i &lt; 2^{30}$). After flushing your output, your program should exit immediately.
+Note that the answer for each test case is pre-determined. That is, the interactor is not adaptive. Also, note that your guess does not count as a query.
+To flush your output, you can use:
+-   fflush(stdout) (if you use printf) or cout.flush() (if you use cout) in C and C++.
+-   System.out.flush() in Java and Kotlin.
+-   stdout.flush() in Python.
+
+Example Input1：
+4 1
+1 2
+2 3
+2 4
+
+
+1 3 2
+Example Output1：
+
+
+
+
+YES
+? 3 1 2 2 3 2 4
+
+! 1 2 3
+Example Input2：
+5 2
+1 2
+2 3
+3 4
+3 5
+
+
+1 2 3 4
+Example Output2：
+
+
+
+
+
+YES
+? 4 1 3 2 4 2 5 4 5 
+
+! 4 5 3 2
+
+###
+
+(F)
+Frank is fascinated by the beauty of numbers.
+One day, Frank was watering flowers in his garden. Looking at the beautiful petals, he thought it would be wonderful if each flower could grow numbers.
+So, he took out paper and pen and started sketching his ideal "number flower". An undirected connected graph is called a "number flower" if and only if it satisfies the following three conditions:
+1.  If the graph contains $n$ nodes, these nodes should be labeled from $1$ to $n$.
+2.  The graph contains exactly $n-1$ edges. No node has a degree greater than $2$ except for node $1$.
+3.  Nodes directly connected to node $1$ are called key nodes. All key nodes have pairwise coprime labels. For each non-key node (except node $1$), its label is a multiple of the nearest key node's label, and the labels along the simple path from the non-key node to its nearest key node are monotonically decreasing.
+Given an integer $n$, how many different "number flowers" with $n$ nodes are there? Two graphs $G_1$ and $G_2$ are considered the same if and only if for any edge $(u, v)$ in $G_1$, a corresponding edge $(u, v)$ exists in $G_2$.
+Since the answer is huge, you only need to output it modulo a prime number $p$.
+
+**Input**
+There is only one test case in each test file.
+The first line contains two positive integers $n$ and $p$ ($1 \leq n \leq 10^{10}$, $10^8 &lt; p &lt; 10^9$).
+It is guaranteed that $p$ is a prime number.
+
+**Output**
+Output a single integer, which is the number of different "number flowers" modulo $p$.
+
+Example Input1：
+5 998244353
+Example Output1：
+1
+Example Input2：
+10 998244353
+Example Output2：
+4
+
+###
+
+(G)
+Given two integers $a$ and $b$, you can perform one of the following two operations in each round:
+-   If $a &gt; 0$, then reduce the value of $a$ by $\gcd(a, b)$ .
+-   If $b &gt; 0$, then reduce the value of $b$ by $\gcd(a, b)$ .
+Grace wants to know the minimum number of rounds needed to make both $a$ and $b$ become $0$.
+$^{\dagger}$ $\gcd(x, y)$ denotes the greatest common divisor of $x$ and $y$. For example, $\gcd(6, 8) = 2, \gcd(7, 5) = 1$. The values of $\gcd(x, 0)$ and $\gcd(0, x)$ are defined as $x$.
+
+**Input**
+Each test file contains multiple test cases. The first line contains the number of test cases $T$ ($1 \leq T \leq 1000$). The description of the test cases follows.
+Each test case consists of a single line containing two integers $a$ and $b$ ($1 \leq a \leq b, a \leq 5000, b \leq 10^{18}$).
+For each test file, it is guaranteed that the sum of $a$ over all test cases does not exceed $10^4$.
+
+**Output**
+For each test case, output a single integer representing the minimum number of rounds needed to make both $a$ and $b$ become $0$.
+
+Example Input1：
+3
+3 4
+12 20
+114 514
+Example Output1：
+3
+4
+6
+
+**Note**
+For the first test case in the example, one possible optimal solution is:
+-   Perform an operation on $a$: $a = 3 - \gcd(3,4) = 2$.
+-   Perform an operation on $a$: $a = 2 - \gcd(2,4) = 0$.
+-   Perform an operation on $b$: $b = 4 - \gcd(0,4) = 0$.
+
+###
+
+(H)
+Hana recently needs to develop a radar system to monitor abnormal activities across the archipelago she manages.
+There are $n$ islands in the ocean, and the $i$\-th island is located at coordinates $(x_i, y_i)$, which can be treated as a point on the plane. Assume the radar has a scanning angle range of $\alpha$. When the radar is rotated to an angle $\theta$, it can monitor all the islands located within the angular range $[\theta - \frac{\alpha}{2}, \theta + \frac{\alpha}{2}]$.
+Hana is currently low on funds, so she wants to minimize the cost of building the radar. She wants to know, when the radar is placed at the origin $(0,0)$, what the minimum scanning angle $\alpha$ should be to ensure that for any angle $\theta$, the radar can monitor at least $k$ islands.
+
+**Input**
+Each test file contains multiple test cases. The first line contains the number of test cases $T$ ($1 \leq T \leq 10^4$). The description of each test case follows.
+The first line of each test case contains two integers $n$ and $k$ ($1 \leq k \leq n \leq 2 \times 10^5$), representing the total number of islands and the minimum number of islands the radar must monitor at any given time.
+The next $n$ lines each contain two integers $x_i$ and $y_i$ ($|x_i|, |y_i| \leq 10^9$), representing the position of an island. It is guaranteed that the coordinates of any two islands are different and none of them are located at the origin.
+For each test file, it is guaranteed that the sum of $n$ over all test cases does not exceed $2 \times 10^5$.
+
+**Output**
+For each test case, output a single decimal fraction representing the minimum radar scanning angle in radians.
+Your answer is considered correct if its absolute or relative error does not exceed $10^{-6}$.
+Formally, let your answer be $a$, and the jury's answer be $b$. Your answer is accepted if and only if $\frac{|a - b|}{\max{(1, |b|)}} \leq 10^{-6}$.
+
+Example Input1：
+1 1
+0 1
+Example Output1：
+6.2831853072
+Example Input2：
+8 2
+1 0
+1 1
+0 1
+-1 1
+-1 0
+-1 -1
+0 -1
+1 -1
+Example Output2：
+1.5707963268
+Example Input3：
+4 2
+-1 1
+0 1
+0 2
+1 1
+Example Output3：
+5.4977871438
+
+**Note**
+For the first test case in the example, there is only one island on the plane at $(0,1)$. To ensure that at least one island is always within range, the radar's monitoring range must be set to $360^{\circ}$, which is $2 \pi$ in radians.
+For the second test case in the example, there are $8$ islands on the plane, with each pair of islands separated by $45^{\circ}$. If the radar's range is less than $90^{\circ}$, it would only be able to monitor one island when one of its boundaries just moves past an island (as shown on the left of the illustration). Therefore, the minimum radar range needed is $90^{\circ}$, ensuring that at least two islands are always within range.
+
+###
+
+(J)
+Jessica is a master of sorting algorithms, proficient in selection sort, insertion sort, bubble sort, and many others. Therefore, she decided to host a sorting competition.
+The competition takes place on a permutation$^{\dagger}$ $p$ of length $n$, with two participants: Alice and Bob. The two players take turns performing operations, with the first player being decided by a coin toss. If the sequence is in ascending order after **any** player's turn, Alice wins immediately. If Alice cannot win within a finite number of turns, Bob is considered the winner.
+On Alice's turn, she can choose any two positions $i,j$ ($i \neq j, 1 \leq i,j \leq n$) in the permutation and swap $p_i$ and $p_j$. On Bob's turn, he can select two adjacent positions $i,i+1$ ($1 \leq i &lt; n$) and swap $p_i$ and $p_{i+1}$. Neither player is allowed to skip their turn.
+Given the permutation $p$ and the name of the player who operates first, determine who will win the game if both players play optimally.
+$^{\dagger}$ A permutation of length $n$ is an array consisting of $n$ distinct integers from $1$ to $n$ in arbitrary order. For example, $[2,3,1,5,4]$ is a permutation, but $[1,2,2]$ is not a permutation ($2$ appears twice in the array), and $[1,3,4]$ is also not a permutation ($n=3$ but there is a $4$ in the array).
+
+**Input**
+Each test file contains multiple test cases. The first line contains the number of test cases $T$ ($1 \leq T \leq 10^4$). The description of the test cases follows.
+The first line of each test case contains an integer $n$ ($2 \leq n \leq 10^5$) and a string $s$ ($s \in \{$Alice, Bob$\}$), representing the length of the permutation and the name of the player who operates first.
+The second line contains $n$ integers $p_1, p_2, \cdots, p_n$ ($1 \leq p_i \leq n$), representing the permutation $p$. It is guaranteed that there is at least one position $i$ such that $p_i \neq i$.
+For each test file, it is guaranteed that the sum of all $n$ over all test cases does not exceed $10^5$.
+
+**Output**
+For each test case, output one line containing the winner's name. If Alice wins, print "Alice"; otherwise, print "Bob".
+
+Example Input1：
+2 Alice
+2 1
+Example Output1：
+Alice
+Example Input2：
+3 Bob
+1 3 2
+Example Output2：
+Bob
+Example Input3：
+10 Bob
+1 2 3 4 5 6 7 8 10 9
+Example Output3：
+Bob
+
+###
+
+(L)
+Fried-chicken is a devoted player of Hearthstone. Since the game resumed operations in the Chinese mainland, he has been obsessed with it and reached Silver 2 rank in Standard mode. Today, while ranking up using Death Knight, he encountered a formidable opponent, Stewed-chicken, and was left with just $1$ Health. To survive, Fried-chicken must eliminate all of Stewed-chicken's minions. Fortunately, he can use spell cards and his minions' attacks to achieve this goal.
+Specifically, this game involves two factions: Fried-chicken and Stewed-chicken. Each faction has some minions. The $i$\-th minion has $h_i$ Health. It is now Fried-chicken's turn, and each of his minions can attack any one minion from the **opposing faction** at most once. When one minion attacks another, both minions lose $1$ Health. If a minion's Health is reduced to $0$ or less, it dies and can no longer attack or be attacked.
+![](https://espresso.codeforces.com/b450c1ac41bc76df32eedfb9108bf1d073892a16.png)
+To achieve his goal, Fried-chicken casts the spell "Threads of Despair," causing every minion to explode upon death, which reduces the Health of **all** minions by $1$. If the explosion causes the death of other minions, other minions will also explode immediately. Fried-chicken cannot have his minions attack other minions until all explosion effects have finished. After casting the spell, Fried-chicken can make his minions attack Stewed-chicken's minions in any order he chooses. He wants to know if there exists an attack order that allows Fried-chicken to eliminate all of Stewed-chicken's minions.
+
+**Input**
+Each test file contains multiple test cases. The first line contains the number of test cases $T$ ($1 \leq T \leq 5 \times 10^5$). The description of the test cases follows.
+The first line of each test case contains two integers $n$ and $m$ ($1 \leq n, m \leq 5 \times 10^5$), representing the number of Fried-chicken's minions and Stewed-chicken's minions, respectively.
+The second line contains $n$ integers $h_1, h_2, \dots, h_n$ ($1 \leq h_i \leq 10^9$), where $h_i$ represents the Health of Fried-chicken's $i$\-th minion.
+The third line contains $m$ integers $h'_1, h'_2, \dots, h'_m$ ($1 \leq h'_i \leq 10^9$), where $h'_i$ represents the Health of Stewed-chicken's $i$\-th minion.
+For each test file, it is guaranteed that the sum of all $n$ across all test cases does not exceed $5 \times 10^5$, and the sum of all $m$ across all test cases does not exceed $5 \times 10^5$.
+
+**Output**
+For each test case, output "Yes" if Fried-chicken can eliminate all of Stewed-chicken's minions; otherwise, output "No".
+You can output the answer in any case (upper or lower). For example, the strings "yEs", "yes", "Yes", and "YES" will be recognized as positive responses.
+
+Example Input1：
+3 2
+1 1 4
+2 6
+Example Output1：
+Yes
+Example Input2：
+3 2
+1 1 4
+2 7
+Example Output2：
+No
+Example Input3：
+2 1
+100 100
+2
+Example Output3：
+No
+
+**Note**
+In the first test case of Sample 1, one possible sequence of actions is as follows: Fried-chicken's $3$rd minion attacks Stewed-chicken's $2$nd minion, followed by Fried-chicken's $2$nd minion attacking Stewed-chicken's $2$nd minion. At this point, Fried-chicken's $2$nd minion dies, triggering an explosion. This explosion causes further deaths, leading to a chain reaction of explosions. Eventually, all minions are eliminated.
+In the third test case of Sample 1, one possible sequence of actions is as follows: Fried-chicken's $1$st minion attacks Stewed-chicken's $1$st minion, followed by Fried-chicken's $2$nd minion attacking Stewed-chicken's $1$st minion. At this point, Stewed-chicken's $1$st minion dies, triggering an explosion. Ultimately, Fried-chicken is left with two minions, each having $98$ Health, while all of Stewed-chicken's minions are eliminated. Fried-chicken survives successfully.
+
+###
+
+(M)
+Mary loves constructing matrices!
+Today, Mary wants to fill a permutation$^{\dagger}$ of length $n \times m$ into an $n \times m$ matrix $A$, such that the sum of any two adjacent elements is unique.
+In other words, for any $1 \leq x_1,x_2,x_3,x_4 \leq n, 1 \leq y_1,y_2,y_3,y_4 \leq m$, if all of the following conditions are satisfied:
+-   $x_2 \geq x_1, y_2 \geq y_1, x_4 \geq x_3, y_4 \geq y_3$;
+-   $|x_2-x_1|+|y_2-y_1|=1, |x_4-x_3|+|y_4-y_3|=1$;
+-   $(x_1,y_1) \neq (x_3,y_3)$ or $(x_2,y_2) \neq (x_4,y_4)$;
+then:
+$$
+A_{x_1,y_1}+A_{x_2,y_2} \neq A_{x_3,y_3}+A_{x_4,y_4}
+$$
+For example, when $n=2$ and $m=3$, matrix $B$ is a valid solution, while matrix $C$ is not valid because $C_{1,1}+C_{2,1}=C_{1,2}+C_{1,3}$.
+$$
+B = \begin{bmatrix} 1 & 3 & 2 \\ 6 & 5 & 4 \end{bmatrix}, \quad C = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}
+$$
+Given $n$ and $m$, can all the conditions above be satisfied? If so, output a valid solution.
+$^{\dagger}$ A permutation of length $n$ is an array consisting of $n$ distinct integers from $1$ to $n$ in arbitrary order. For example, $[2,3,1,5,4]$ is a permutation, but $[1,2,2]$ is not a permutation ($2$ appears twice in the array), and $[1,3,4]$ is also not a permutation ($n=3$ but there is a $4$ in the array).
+
+**Input**
+Each test file contains multiple test cases. The first line contains the number of test cases $T$ ($1 \leq T \leq 10^4$). The description of the test cases follows.
+The first line contains two integers $n,m$ ($1 \leq n,m \leq 1000$).
+For each test file, it is guaranteed that the sum of $n \times m$ over all test cases does not exceed $10^6$.
+
+**Output**
+For each test case, output on the first line whether a valid solution exists. If there is a valid solution, output "Yes"; otherwise, output "No". You can output the answer in any case (upper or lower). For example, the strings "yEs", "yes", "Yes", and "YES" will be recognized as positive responses.
+If a valid solution exists, you must also output $n$ lines, each containing $m$ integers. The $j$\-th number on the $i$\-th line represents the number at row $i$ and column $j$ in the matrix. You must make sure that the output numbers form a permutation of length $n \times m$. If there are multiple solutions, you may print any of them.
+
+Example Input1：
+1 1
+Example Output1：
+yEs
+1
+Example Input2：
+2 3
+Example Output2：
+YES
+1 3 2
+6 5 4

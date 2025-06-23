@@ -1,0 +1,507 @@
+(B)
+Grammy's birthday is approaching, and she gets a sequence $A$ from her friends as a gift. The sequence consists of only $0$, $1$, and $2$. Grammy thinks that the sequence is too long, so she decides to modify $A$ to make it shorter.
+
+Formally, Grammy can perform an arbitrary number of operations. Each time she can choose one of the following three operations to perform:
+
+-   Change any $2$ into $0$ or $1$.
+-   Choose two adjacent $0$s, erase them, and concatenate the rest of the parts.
+-   Choose two adjacent $1$s, erase them, and concatenate the rest of the parts.
+
+Calculate the minimum sequence length Grammy can get.
+
+**Input**
+
+There are multiple test cases. The first line of the input contains an integer $T$ indicating the number of test cases. For each test case:
+
+The first and only line contains a string of length $n$ ($1\leq n\leq 2 \times 10^5$) consisting of digits $0$, $1$, and $2$, indicating the initial sequence $A$.
+
+It is guaranteed that the sum of $n$ of all test cases will not exceed $5 \times 10^5$.
+
+**Output**
+
+For each test case, output one line containing one integer indicating the minimum sequence length Grammy can get.
+
+Example Input1:
+0110101
+Example Output1：
+3
+Example Input2:
+01020102
+Example Output2：
+4
+Example Input3:
+0000021111
+Example Output3：
+0
+Example Input4:
+1012121010
+Example Output4：
+6
+Example Input5:
+0100202010
+Example Output5：
+0
+
+###
+(C)
+You are given a tree consisting of $n$ vertices, rooted at vertex $1$. It is guaranteed that every vertex has a smaller index than all of its children. A topological order of this tree is a permutation $p_1,p_2,\dots,p_n$ of $n$ that satisfies the following constraint: For all $1\leq i&lt;j\leq n$, vertex $p_j$ is not the parent of vertex $p_i$.
+
+For each $1 \le i \le n$, calculate the number of topological orders of the given tree satisfying $p_i=i$, modulo $998\,244\,353$.
+
+**Input**
+
+There is only one test case in each test file.
+
+The first line contains an integer $n$ ($2\leq n\leq 5\,000$), denoting the number of vertices of the tree.
+
+The second line contains $(n-1)$ integers $f_2,f_3,\dots,f_n$ ($1\leq f_i&lt; i$), where $f_i$ is the parent of vertex $i$.
+
+**Output**
+
+Output one line containing $n$ integers $a_1, a_2, \cdots, a_n$ separated by a space, where $a_i$ is the number of topological orders satisfying $p_i=i$, modulo $998\,244\,353$.
+
+Example Input1：
+4
+1 1 2
+Example Output1：
+3 2 1 2
+Example Input2：
+9
+1 1 2 2 3 3 4 5
+Example Output2：
+672 420 180 160 152 108 120 170 210
+
+**Note**
+
+For the first sample test case, all topological orders of the tree are $\{1, 2, 3, 4\}$, $\{1, 3, 2, 4\}$ and $\{1, 2, 4, 3\}$. There are $3$ of them satisfying $p_1 = 1$, $2$ of them satisfying $p_2 = 2$, $1$ of them satisfying $p_3 = 3$, and $2$ of them satisfying $p_4 = 4$.
+
+###
+
+(E)
+Given a string $S = s_0s_1\cdots s_{n-1}$ of length $n$, you can shift $S$ to the left for at most $k$ times (including zero times). Calculate the maximum number of "nanjing" substrings contained in the string after the operations.
+
+More formally, let $f(S, d)$ be the string obtained by shifting $S$ to the left $d$ times. That is, $f(S, d) = s_{(d+0)\bmod n}s_{(d+1)\bmod n}\cdots s_{(d+n-1)\bmod n}$. Let $g(f(S, d), l, r) = s_{(d+l)\bmod n}s_{(d+l+1)\bmod n}\cdots s_{(d+r)\bmod n}$. Let $h(d)$ be the number of integer pairs $(l, r)$ such that $0 \le l \le r &lt; n$ and $g(f(S, d), l, r) =$ nanjing. Find an integer $d$ such that $0 \le d \le k$ to maximize $h(d)$ and output this maximized value.
+
+**Input**
+
+There are multiple test cases. The first line of the input contains an integer $T$ indicating the number of test cases. For each test case:
+
+The first line contains two integers $n$ and $k$ ($1 \le n \le 2 \times 10^5$, $0 \le k \le 10^9$) indicating the length of the string and the maximum number of left shifts you can perform.
+
+The second line contains a string $s_0s_1\cdots s_{n - 1}$ of length $n$. The string consists of lower-cased English letters.
+
+It's guaranteed that the sum of $n$ of all test cases will not exceed $5 \times 10^5$.
+
+**Output**
+
+For each test case, output one line containing one integer, indicating the maximum number of "nanjing" substrings contained in the string.
+
+Example Input1：
+21 10
+jingicpcnanjingsuanan
+Example Output1：
+2
+
+Example Input2：
+21 0
+jingicpcnanjingsuanan
+Example Output2：
+1
+
+Example Input3：
+21 3
+nanjingnanjingnanjing
+Example Output3：
+3
+
+Example Input4：
+4 100
+icpc
+Example Output4：
+0
+
+**Note**
+
+For the first sample test case, we can shift the string to the left $6$ times and get the string "pcnanjingsuananjingic". There are two "nanjing" substrings.
+
+For the second sample test case, because $k = 0$, we cannot perform any left shifting. There is one "nanjing" substring in the original string.
+
+###
+
+(F)
+In Pigeland, the subway system is quite advanced. It consists of $n$ sites, numbered from $1$ to $n$, and $k$ directed subway lines, numbered from $1$ to $k$. Subway line $i$ travels through sites $x_{i, 1}, x_{i, 2}, \cdots, x_{i, p_i}$ in order, where $x_{i, j}$ is the $j$\-th site visited by line $i$. It takes $w_{i,j}$ units of time to travel from site $x_{i,j}$ to site $x_{i,j+1}$ on line $i$.
+
+When multiple lines meet at the same site, passengers can transfer between lines. If a passenger is at a site on line $x$, while line $y$ also passes through this site, he/she can spend $a_y \times b_x$ units of time to transfer from line $x$ to line $y$, where $a_y$ and $b_x$ are given coefficients for lines $y$ and $x$. After transferring, the passenger is still at the same site, but on line $y$.
+
+You start at site $1$. Find the minimum time needed to reach site $s$ for all $2 \le s \le n$. In particular, you can start by choosing any line at site $1$ with no transfer time cost. It is guaranteed that all sites are reachable from site $1$.
+
+**Input**
+
+There is only one test case in each test file.
+
+The first line contains two integers $n$ and $k$ ($2 \leq n \leq 2 \times 10^5$, $1 \leq k \leq 2 \times 10^5$), indicating the number of sites and the number of subway lines.
+
+The second line contains $k$ integers $a_1, a_2, \cdots, a_k$ ($1 \leq a_i \leq 10^6$).
+
+The third line contains $k$ integers $b_1, b_2, \cdots, b_k$ ($1 \leq b_i \leq 10^6$).
+
+For the following $k$ lines, the $i$\-th line first contains an integer $p_i$ ($2 \leq p_i \leq n$), indicating the number of sites line $i$ travels through. Then $(2p_i - 1)$ integers $x_{i, 1}, w_{i, 1}, x_{i, 2}, \ldots, x_{i, p_i - 1}, w_{i, p_i - 1}, x_{i, p_i}$ follow ($1 \leq x_{i,j} \leq n$, $1 \leq w_{i,j} \leq 10^9$), where $x_{i, j}$ is the $j$\-th site visited by line $i$, and $w_{i,j}$ is the travel time from site $x_{i,j}$ to site $x_{i,j+1}$ on line $i$. The sites traveled through by a subway line are distinct.
+
+It is guaranteed that $\sum\limits_{i=1}^k (p_i - 1) \leq 2 \times 10^5$.
+
+**Output**
+
+Output one line containing $(n - 1)$ integers $d_2, d_3, \cdots, d_n$ separated by a space, where $d_i$ is the minimum time cost from site $1$ to site $i$.
+
+Example Input1：
+6 3
+1 5 1
+5 5 1
+3 1 2 2 3 3
+3 5 1 2 1 4
+3 3 4 5 4 6
+Example Output1：
+2 5 21 14 18
+
+Example Input2：
+6 3
+1 5 1
+5 5 1
+5 1 2 2 100 3 100 6 1 4
+5 1 100 2 4 3 100 5 1 4
+2 3 1 5
+Example Output2：
+2 31 43 37 136
+
+###
+
+(G)
+Given a binary tree with $n$ vertices, your task is to find a special vertex $s$ in the tree with at most $p = \lfloor \log_2 n \rfloor$ queries. That is to say, $p$ is the largest integer such that $2^p \le n$.
+
+Each query consists of two different vertices $u$ and $v$. The interactor will output an integer $t$ ($0 \le t \le 2$) as the answer. Let $d(a, b)$ be the number of edges on the simple path from vertex $a$ to vertex $b$.
+
+-   If $t = 0$, then vertex $u$ is nearer to the special vertex. That is, $d(u, s) &lt; d(v, s)$.
+-   If $t = 1$, then the distances from $u$ and $v$ to the special vertex are the same. That is, $d(u, s) = d(v, s)$.
+-   If $t = 2$, then vertex $v$ is nearer to the special vertex. That is, $d(u, s) &gt; d(v, s)$.
+
+Note that the interactor is adaptive, meaning that the answer for each test case is not pre-determined. The interactor can determine the special vertex according to your queries, as long as its answer does not conflict with the previous queries and answers.
+
+**Input**
+
+There are multiple test cases. The first line of the input contains an integer $T$ indicating the number of test cases. For each test case:
+
+The first line contains an integer $n$ ($2 \le n \le 10^5$) indicating the number of vertices in the binary tree.
+
+For the following $n$ lines, the $i$\-th line contains two integers $x_i$ and $y_i$ ($0 \le x_i, y_i \le n$), indicating the left and right child of the $i$\-th vertex. If $x_i = 0$, then the $i$\-th vertex has no left child; if $y_i = 0$, then the $i$\-th vertex has no right child.
+
+It is guaranteed that the sum of $n$ for all test cases will not exceed $2 \times 10^5$.
+
+**Interaction**
+
+To ask a query, output one line. First output ? followed by a space, then print two different integers $u$ and $v$ ($1 \le u, v \le n$) separated by a space. After flushing your output, your program should read a single integer $t$ indicating the answer to your query.
+
+If you want to guess the special vertex, output one line. First output ! followed by a space, then print an integer $s$ ($1 \le s \le n$) indicating the special vertex. After flushing your output, your program should continue processing the next test case, or exit immediately if there are no more test cases. Note that your guess does not count as a query.
+
+To flush your output, you can use:
+
+-   fflush(stdout) (if you use printf) or cout.flush() (if you use cout) in C and C++.
+-   System.out.flush() in Java.
+-   stdout.flush() in Python.
+
+Example Input1：
+2
+5
+0 0
+1 5
+2 4
+0 0
+0 0
+
+1
+
+0
+
+2
+0 2
+0 0
+
+2
+Example Output1：
+
+
+
+
+
+
+
+? 5 1
+
+? 1 4
+
+! 2
+
+
+
+? 2 1
+
+! 1
+
+###
+
+(I)
+Given two integers $n$, $m$ and an integer sequence $a_1, a_2, \cdots, a_{nm}$ of length $n \times m$, we're going to fill a grid of $n$ rows and $m$ columns with the integers from the sequence. More specifically, let $(i, j)$ be the cell on the $i$\-th row and the $j$\-th column, we'll put the $((i - 1) \times m + j)$\-th element of the sequence (that is, $a_{(i - 1) \times m + j}$) into that cell.
+
+We say an integer $k$ is a "bingo integer" of the sequence, if after filling all the cells, at least one of the two following conditions is satisfied.
+
+-   There is at least one row, where all integers in the cells of that row are less than or equal to $k$.
+-   There is at least one column, where all integers in the cells of that column are less than or equal to $k$.
+
+It is easy to see that a sequence may have multiple bingo integers, however in this problem, we're only interested in the smallest bingo integer.
+
+Calculate the sum of the smallest bingo integers for all $(nm)!$ permutations of the given sequence. As the answer may be large, output the answer modulo $998\,244\,353$.
+
+**Input**
+
+There are multiple test cases. The first line of the input contains an integer $T$ indicating the number of test cases. For each test case:
+
+The first line contains two integers $n$ and $m$ ($1 \le n, m \le 2 \times 10^5$, $1 \le n \times m \le 2 \times 10^5$), indicating the number of rows and columns of the grid.
+
+The second line contains $n \times m$ integers $a_1, a_2, \cdots, a_{nm}$ ($0 \le a_i &lt; 998\,244\,353$) indicating the given sequence.
+
+It's guaranteed that the sum of $n \times m$ of all test cases will not exceed $4 \times 10^5$.
+
+**Output**
+
+For each test case, output one line containing one integer indicating the answer.
+
+Example Input1：
+2 2
+1 3 2 4
+Example Output1：
+56
+
+Example Input2：
+3 1
+10 10 10
+Example Output2：
+60
+
+Example Input3：
+1 3
+20 10 30
+Example Output3：
+60
+
+Example Input4：
+3 4
+1 1 4 5 1 4 1 9 1 9 8 10
+Example Output4：
+855346687
+
+**Note**
+
+For the first sample test case, if $1$ and $2$ are not on the same row or column, then the smallest bingo integer will be $3$, otherwise the smallest bingo integer will be $2$. There are $8$ permutations where $1$ and $2$ are not on the same row or column, so the answer is $8 \times 3 + (4! - 8) \times 2 = 56$.
+
+For the second sample test case, the smallest bingo integer is always $10$, so the answer is $3! \times 10 = 60$.
+
+###
+
+(J)
+On a social media platform, users can leave comments under others' posts to express their thoughts. However, these comments are not visible to everyone. Specifically, for user $C$ to see user $A$'s comments under user $B$'s post, he/she has to be friends with both $A$ and $B$ at the same time. If a user leaves a comment under his/her own post, all his/her friends can see this comment.
+
+As an active user on this platform, you would like to see as many comments as possible. There are $k$ users (not counting you) on the platform, numbered from $1$ to $k$. There are also $m$ comments on the platform, but you might not be able to see them all because you only have $n$ friends. As you need to participate in the 2024 ICPC Asia Nanjing Regional Contest, you don't have time to make too many new friends. What's the maximum number of comments you can see if you make at most two new friends on the platform?
+
+**Input**
+
+There are multiple test cases. The first line of the input contains an integer $T$ indicating the number of test cases. For each test case:
+
+The first line contains three integers $n$, $m$, and $k$ ($1 \le n \le k \le 2 \times 10^5$, $1 \le m \le 2 \times 10^5$) indicating the number of your friends, the number of comments, and the number of users (not counting you) on the platform.
+
+The second line contains $n$ distinct integers $f_1, f_2, \cdots, f_n$ ($1 \le f_i \le k$) indicating your friends on the platform.
+
+For the following $m$ lines, the $i$\-th line contains two integers $a_i$ and $b_i$ ($1 \le a_i, b_i \le k$) indicating a comment written by user $a_i$ under user $b_i$'s post.
+
+It's guaranteed that neither the sum of $k$ nor the sum of $m$ of all test cases will exceed $2 \times 10^5$.
+
+**Output**
+
+For each test case, output one line containing one integer, indicating the maximum number of comments you can see if you make at most two new friends on the platform.
+
+Example Input1：
+4 12 7
+5 7 3 6
+3 6
+2 2
+1 4
+2 4
+1 3
+7 6
+4 1
+5 4
+1 1
+1 1
+2 1
+3 7
+Example Output1：
+9
+
+Example Input2：
+2 7 6
+2 4
+1 2
+3 2
+2 5
+5 4
+2 6
+4 6
+2 6
+Example Output2：
+5
+
+Example Input3：
+1 1 2
+1
+1 2
+Example Output3：
+1
+
+Example Input4：
+2 1 2
+1 2
+1 2
+Example Output4：
+1
+
+Example Input5：
+2 1 100
+24 11
+11 24
+Example Output5：
+1
+
+**Note**
+
+For the first sample test case, you can make friends with user $1$ and $4$.
+
+For the second sample test case, you can make friends with user $5$ and $6$.
+
+For the third sample test case, you can make friends with user $2$.
+
+For the fourth and fifth sample test cases, you don't need to make new friends because you can already see all comments.
+
+###
+
+(K)
+There are $w$ cells arranged in a row, numbered from $1$ to $w$ from left to right. Among the cells, $n$ of them are red, $m$ of them are black, and the remaining $(w - n - m)$ cells are white.
+
+You need to cover all the red cells with some strips. Each strip must cover $k$ continuous cells. Find a way to cover all red cells while satisfying all the following constraints:
+
+-   Each red cell is covered by a strip.
+-   No black cell is covered by a strip.
+-   No two strips cover the same cell. That is, each cell is covered by at most one strip.
+-   The number of strips used is as small as possible.
+
+**Input**
+
+There are multiple test cases. The first line of the input contains an integer $T$ indicating the number of test cases. For each test case:
+
+The first line contains four integers $n$, $m$, $k$ and $w$ ($1 \le n, m \le 10^5$, $1 \le k \le w \le 10^9$, $n + m \le w$), indicating the number of red cells, the number of black cells, the length of each strip and the total number of cells.
+
+The second line contains $n$ integers $a_1, a_2, \cdots, a_n$ ($1 \le a_i \le w$), indicating that cell $a_i$ is red.
+
+The third line contains $m$ integers $b_1, b_2, \cdots, b_m$ ($1 \le b_i \le w$), indicating that cell $b_i$ is black.
+
+It's guaranteed that the given $(n + m)$ cells are distinct. It's also guaranteed that neither the sum of $n$ nor the sum of $m$ of all test cases will exceed $2 \times 10^5$.
+
+**Output**
+
+For each test case:
+
+If it is possible to cover all the red cells while satisfying all constraints, first output one line containing one integer $c$ indicating the smallest number of strips used. Then output another line containing $c$ integers $l_1, l_2, \cdots, l_c$ ($1 \le l_i \le w - k + 1$) separated by a space, where $l_i$ is the left-most cell covered by the $i$\-th strip. If there are multiple valid answers, you can output any of them.
+
+If it is not possible to do so, just output \-1 in one line.
+
+Example Input1：
+5 2 3 16
+7 11 2 9 14
+13 5
+Example Output1：
+4
+6 2 14 9
+
+Example Input2：
+3 2 4 11
+6 10 2
+1 11
+Example Output2：
+-1
+
+Example Input3：
+2 1 2 6
+1 5
+3
+Example Output3：
+2
+1 4
+
+Example Input4：
+2 1 2 6
+1 5
+2
+Example Output4：
+-1
+
+###
+
+(M)
+Neuvillette is the Chief Justice of Fontaine, known as the Iudex, and he is renowned for his unassailable impartiality. As a playable character in the world-famous game Genshin Impact, he is known for his powerful charged attack that can hit enemies within a specific range.
+
+Since he is very powerful, many players use him while challenging almost every quest. However, not everybody in Teyvat is happy about this, especially other ADC (Attack Damage Carry) characters, including Kamisato Ayaka, Keqing, etc. Together, they decide to persuade Mihoyo to nerf Neuvillette in the game. To do so, they must submit a report about Neuvillette's total damage in several scenarios.
+
+Created from Genshin Impact official material
+
+Each battle scenario happens on a two-dimensional plane. Neuvillette stands on $(0,0)$ facing $(x_0, y_0)$ initially, making a charged attack which lasts for $t$ units of time, and rotates $1$ rad counter-clockwise per unit of time. That is to say, Neuvillette turns a circle counter-clockwise in $2 \pi$ units of time.
+
+Consider a ray from $(0,0)$ towards the direction Neuvillette faces. The attack range is the set of points whose distance to the ray is at most $d$. If the target, whose shape is a convex polygon, has common points with the attack range, it will suffer $1$ continued damage per unit of time.
+
+As an experienced programmer, you are summoned by Ayaka. This time, your task is to calculate the damage the target incurs in the first $t$ units of time.
+
+**Input**
+
+There is only one test case in each test file.
+
+The first line contains five integers $n$, $x_0$, $y_0$, $d$, and $t$ ($3 \le n \le 100$, $-10^4 \le x_0, y_0 \le 10^4$, $x_0^2 + y_0^2 &gt; 0$, $1 \le d, t \le 10^4$).
+
+For the following $n$ lines, the $i$\-th line contains two integers $x_i$ and $y_i$ ($-10^4 \le x_i, y_i \le 10^4$), indicating the coordinates of the $i$\-th vertex of the convex polygon.
+
+All $n$ vertices are given in counter-clockwise order, and any three of them are not collinear. It is also guaranteed that the shape has no common points with the circle centered at $(0,0)$ with radius $d$. That is to say, there does not exist a point inside or on the boundary of the convex polygon, while at the same time inside or on the boundary of the circle.
+
+**Output**
+
+Output one line containing one real number, indicating the damage the target incurs in the first $t$ units of time.
+
+Your answer will be considered correct if its absolute or relative error does not exceed $10^{-6}$. Formally speaking, suppose that your output is $a$ and the jury's answer is $b$, your output is accepted if and only if $\frac{|a - b|}{\max(1, |b|)} \le 10^{-6}$.
+
+Example Input1：
+3 1 0 1 1
+1 2
+2 1
+2 2
+Example Output1：
+1.000000000000
+
+Example Input2：
+3 1 0 1 2
+1 2
+2 1
+2 2
+Example Output2：
+1.570796326795
+
+Example Input3：
+3 1 0 1 10000
+1 2
+2 1
+2 2
+Example Output3：
+2500.707752257475

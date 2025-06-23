@@ -1,0 +1,338 @@
+(A)
+Hailing from a long lost tribe of vastaya, Neeko can blend into any crowd by borrowing the appearances of others, even absorbing something of their emotional state to tell friend from foe in an instant. No one is ever sure where — or who — Neeko might be, but those who intend to do her harm will soon witness her true colors revealed, and feel the full power of her primordial spirit magic unleashed upon them.
+
+Neeko has infiltrated a grid of characters with dimensions $n \times m$, each cell in the grid is represented by a string of length $k$. She can mimic the other cells; however, Neeko's cell has at least one character different from the other cells while all the other cells are the same. Your task is to find Neeko.
+
+**Input**
+
+The first line of the input contains three integers $n, m, k ~(2 \leq n, m \leq 200, 1 \leq k \leq 10)$.
+
+The next $n$ lines contain $m \cdot k$ characters each, consisting of visible ASCII characters from !(33) to  (126). The $((j - 1) \cdot k + 1)$\-th to the $(j \cdot k)$\-th character in the $i$\-th line represents the cell $(i, j)$.
+
+It's guaranteed that there is no extra space or line break, and the answer can be uniquely determined.
+
+**Output**
+
+Print two integers $r, c$, denoting the position of Neeko is in the $r$\-th row and the $c$\-th column.
+
+Example Input1：
+3 5 3
+QWQQWQQWQQWQQWQ
+QWQQWQQWQQWQQWQ
+QWQQWQQWQQWQQwQ
+Example Output1：
+3 5
+
+###
+
+(C)
+Capoo invented an interesting language named Push-Pop. This language is an interpreted language. The interpreter starts with an empty stack with infinite capacity and reads the first instruction of the custom program. There are only two kinds of instructions in this language:
+
+-   POP a GOTO x; PUSH b GOTO y
+    
+    If the top element of the stack is $a$, then pop the stack once and transfer the control flow to the $x$\-th instruction (which means the next instruction will be the $x$\-th). Otherwise, push an element $b$ into the stack and transfer the control flow to the $y$\-th instruction.
+    
+-   HALT; PUSH b GOTO y
+    
+    If the stack is empty, halt the whole program after executing this instruction. Otherwise, push an element $b$ into the stack and transfer the control flow to the $y$\-th instruction.
+    
+
+Capoo wants to construct a Push-Pop program that halts after executing **exactly $k$ instructions**. Due to the naive implementation of the interpreter, a program can contain **at most $64$ instructions**.
+
+**Input**
+
+The only line contains a single integer $k$ ($1\le k \le 2^{31} - 1$, $k$ is odd).
+
+**Output**
+
+The first line contains an integer $n ~(1\le n\le 64)$ denoting the number of instructions, and then follows $n$ lines denoting the Push-Pop program. For each instruction, $1\le a,b\le 128,~ 1\le x,y\le n$ should hold.
+
+It is guaranteed that a solution exists for given input.
+
+Example Input1：
+1
+Example Output1：
+1
+HALT; PUSH 1 GOTO 1
+
+Example Input2：
+5
+Example Output2：
+5
+POP 1 GOTO 2; PUSH 1 GOTO 2
+HALT; PUSH 1 GOTO 3
+POP 1 GOTO 4; PUSH 2 GOTO 4
+POP 1 GOTO 2; PUSH 2 GOTO 4
+HALT; PUSH 99 GOTO 4
+
+**Note**
+
+For the second example, instructions are: 1(PUSH), 2(PUSH), 3(POP), 4(POP), 2(HALT).
+
+###
+
+(D)
+Capoo invented an interesting language named Push-Pop. This language is an interpreted language. The interpreter starts with an empty stack with infinite capacity and reads the first instruction of the custom program. There are only two kinds of instructions in this language:
+
+-   POP a GOTO x; PUSH b GOTO y
+    
+    If the top element of the stack is $a$, then pop the stack once and transfer the control flow to the $x$\-th instruction (which means the next instruction will be the $x$\-th). Otherwise, push an element $b$ into the stack and transfer the control flow to the $y$\-th instruction.
+    
+-   HALT; PUSH b GOTO y
+    
+    If the stack is empty, halt the whole program after executing this instruction. Otherwise, push an element $b$ into the stack and transfer the control flow to the $y$\-th instruction.
+    
+
+Capoo wants to upgrade the naive interpreter to deal with more instructions. Given a program of **at most $1024$ instructions**, calculate the number of steps the program would execute before halting.
+
+**Input**
+
+The first line contains an integer $n$ ($1\le n\le 1024$), followed by $n$ lines containing one instruction each. It is guaranteed that $1\le a,b\le 1024,~ 1\le x,y\le n$ for each instruction.
+
+**Output**
+
+Print $-1$ if the program will never halt, or the number of instructions would execute, **modulo $998\,244\,353$**.
+
+Example Input1：
+1
+HALT; PUSH 1 GOTO 1
+Example Output1：
+1
+
+Example Input2：
+5
+POP 1 GOTO 2; PUSH 1 GOTO 2
+HALT; PUSH 1 GOTO 3
+POP 1 GOTO 4; PUSH 2 GOTO 4
+POP 1 GOTO 2; PUSH 2 GOTO 4
+HALT; PUSH 99 GOTO 4
+Example Output2：
+5
+
+Example Input3：
+1
+POP 1 GOTO 1; PUSH 1 GOTO 1
+Example Output3：
+-1
+
+**Note**
+
+Key differences in constraints comparing to "The Empress":
+
+-   $n \leq 1024$;
+-   The answer may not exist (program never halts), in which case report $-1$;
+-   For every program that will halt, print the result **modulo $998\,244\,353$**.
+
+###
+
+(E)
+In the ever-changing and chaotic environment of Night City, uncertainty is the only certainty. For safe travel, edgerunners rely on the best technology. Despite their premium price and corporation background, Delamain AI armed cabs provide the most reliable mode of transportation.
+
+Today, you need to make a lengthy journey across Night City. The Delamain cab's fare structure is as follows:
+
+-   The base fare is $ A $  eurodollars, covering the first $ X $  meters.
+-   For the next $ Y $  meters, the fare is $ B $  eurodollars per meter.
+-   Beyond $ X + Y $  meters, the fare is $ C $  eurodollars per meter.
+
+At any point, you may perform the following operation: stop and re-hail a cab. By doing so, you will immediately settle the cost of your previous cab, and the fare for the next one will be recalculated starting from the base fare. This operation can be performed for any number of times.
+
+Now, you want to determine the minimum cost in eurodollars for traveling $D$ meters using Delamain cabs.
+
+**Input**
+
+The input consists of multiple test cases. The first line contains a single integer $T$ ($1 \leq T \leq 2077$) — the number of test cases. The description of the test cases follows.
+
+The input contains six integers in a line: $ A, B, C, X, Y, D ~ (0 &lt; A, B, C, X, Y, D &lt; 10 ^ {2077})$  in decimal representation, without leading zeros.
+
+It is guaranteed that the sum of the number of digits of $A$ among $T$ test cases does not exceed $\texttt{0x2077}$. This constraint also applies individually to $B, C, X, Y, D$.
+
+The value $\texttt{0x2077}$ used in the constraint is a hexadecimal number, equal to the decimal number $8311$.
+
+**Output**
+
+For each test case, output a single line containing the minimized cost in eurodollars for traveling $D$ meters using Delamain's cabs.
+
+It can be proven that the answer is a positive integer. Please print the integer in decimal form without leading zeros.
+
+Example Input1：
+160 27 41 3 12 3
+Example Output1：
+160
+
+Example Input2：
+160 27 41 3 12 4
+Example Output2：
+187
+
+Example Input3：
+160 27 41 3 12 99
+Example Output3：
+3226
+
+Example Input4：
+1 999 999 1 99 999
+Example Output4：
+999
+
+Example Input5：
+999 999 1 1 99 9999999999999999
+Example Output5：
+10000000000099799
+
+**Note**
+
+For the fourth sample, the optimal solution is to hail $999$ cabs, hailing a new one every meter. It seems quite weird, but you are confident that this is the optimal way to live the life in Night City.
+
+###
+
+(F)
+The renowned alchemist Xu Dog discovered that precisely removing impurities could enhance the spiritual essence of the elixirs he was refining. Through day after day of alchemy, he found that the nature of these impurities was intricately related to mathematical problems. Since your progress in Dao is still shallow, Xu Dog decided to tell you the mathematical problem he needs to solve in the most straightforward way, rather than through the esoteric problems of alchemy.
+
+Given two positive integers $n \leq m$, calculate the sum of the answers to the following problem for all subsets of size $n$ of $\{1, 2, \dots, m\}$, modulo $998\,244\,353$:
+
+-   In a set of $n$ numbers, you can remove some numbers so that the minimum value of the set is not equal to the greatest common divisor of the set. Find the maximum number of elements that can remain in the set after removal. If no non-empty subset satisfies the condition, the answer is defined as $0$.
+
+The greatest common divisor of a set is defined as the largest value among the common divisors of all elements in the set. For example, the greatest common divisor of the set $\{6, 9, 15\}$ is $3$.
+
+**Input**
+
+Input consists of a single line containing two integers $m, n~ (1 \leq n \leq m \leq 10 ^ 5)$.
+
+**Output**
+
+Output an integer representing the answer, modulo $998\,244\,353$.
+
+Example Input1：
+4 3
+Example Output1：
+7
+
+Example Input2：
+11 4
+Example Output2：
+1187
+
+Example Input3：
+100000 99999
+Example Output3：
+17356471
+
+**Note**
+
+For the first example, all cases are listed below:
+
+-   $\{1, 2, 3\}$: $\{2, 3\}$
+-   $\{1, 2, 4\}$: No solution
+-   $\{1, 3, 4\}$: $\{3, 4\}$
+-   $\{2, 3, 4\}$: $\{2, 3, 4\}$
+
+Therefore, the answer is $2 + 0 + 2 + 3 \bmod 998\,244\,353 = 7$.
+
+###
+
+(J)
+In this world, only the green ones never let me down.
+
+— Chen Loong
+
+The renowned farmer Chen Loong discovered that a rational planting density could raise production.
+
+Now, the farm can be viewed as a three-dimensional coordinate system, and a plant can be seen as a point in it. There are $n$ different plants $A_i=(x_i,y_i,z_i)$. For each plant $A_i$, its density is defined as follows.
+
+-   Suppose there are $a$, $b$, and $c$ plants other than $A_i$ with the same $x$, $y$, or $z$ coordinates as $A_i$, respectively. Then, the density of $A_i$ is $\max\{a,b,c\}$.
+
+Since Chen Loong's plants love involution, he decides to remove some plants with less density. Please answer the minimum number of plants that need to be removed such that each of the remaining plants has a density greater than or equal to $k$. Note that after removing a point, the density of other plants may change. In particular, removing all plants is always considered valid.
+
+You need to solve for $k=0,1,\ldots,n-1$ respectively.
+
+**Input**
+
+The input consists of multiple test cases. The first line contains a single integer $T$ ($1\le T\le 2 \times 10^4$) — the number of test cases. The description of the test cases follows.
+
+The first line contains an integer $n$ ($1 \le n\le 10^5$) — the number of plants.
+
+In the next $n$ lines, the $i$\-th line contains three integers $x_i$, $y_i$, and $z_i$ ($1 \le x_i,y_i,z_i \le 10^5$) — the coordinates of each plant.
+
+It is guaranteed that the coordinates of the $n$ plants are distinct.
+
+It is guaranteed that the sum of $n$ among $T$ test cases does not exceed $2\times 10^5$.
+
+**Output**
+
+For each test case, output $n$ integers in a line, representing the answers for $k=0,1,\ldots,n-1$.
+
+Example Input1：
+5
+1 1 1
+1 1 2
+1 1 3
+2 3 5
+2 2 4
+Example Output1：
+0 0 2 5 5
+
+Example Input2：
+3
+1 1 1
+2 2 2
+3 3 3
+Example Output2：
+0 3 3
+
+###
+
+(L)
+Houraisan Kaguya is a NEET princess who loves to watch videos at home. Recently, she often watches videos on a famous video-sharing website called Mikufans.
+
+There is a useful feature on Mikufans that allows users to leave a message during the video playback, which is called danmaku. Sometimes, there are so many danmaku messages at the same time that Kaguya cannot take them all in.
+
+For simplicity, we only focus on the top danmaku messages: top danmaku messages are displayed at the top of the video screen, and each message occupies exactly one line. There is no limit to the number of danmaku messages at the same time (although Kaguya's screen will only display the first $10^9$ lines, the remaining messages will still be correctly maintained in the overflow area of the screen).
+
+During the video playback, there may be three types of events:
+
+1.  A **new** user sends some top danmaku messages. Each message will be placed at the topmost empty line in order.
+2.  The danmaku messages from a specific user disappear, and the lines they are in become empty lines. The other messages will **not** be affected and still remain in their positions.
+3.  Kaguya is interested in a danmaku message, so she wants to know the sender of the top danmaku message at a specific line.
+
+Kaguya has many videos to watch every day, and she is too busy to re-watch the video from the beginning, so she asks you for help. Please help her find the senders of the danmaku messages.
+
+**Input**
+
+The first line of input contains one integer $n$ ($1 \le n \le 5 \times 10^5$), representing the number of events.
+
+Each of the following $n$ lines contains one event in order. Each event is described in one of the following formats:
+
+-   1 k: A new user sends $k$ ($1 \le k \le 10^9$) top danmaku messages. The ID of the user is the smallest positive integer that has not been used before.
+-   2 u: The danmaku messages from user $u$ disappeared. It is guaranteed that the ID is valid, and the danmaku messages from user $u$ have not disappeared before.
+-   3 l: Kaguya wants to know the ID of the sender of the danmaku message at the $l$\-th ($1 \le l \le 10^9$) topmost line. If that line is empty, the answer is defined as 0.
+
+**Output**
+
+For each query of type 3, output the answer in a single line.
+
+Example Input1：
+7
+1 2
+1 4
+3 3
+2 1
+3 2
+1 4
+3 7
+Example Output1：
+2
+0
+3
+
+Example Input2：
+5
+3 6
+3 8
+1 2
+1 5
+3 2
+Example Output2：
+0
+0
+1
+

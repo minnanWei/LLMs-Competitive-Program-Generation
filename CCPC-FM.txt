@@ -1,0 +1,273 @@
+(A)
+Little A has many strings, each with a character set of $\{1,2,\cdots,m\}$. He constructed a Trie for these strings and built an Aho-Corasick automaton from this Trie.
+
+However, due to Little A's negligence, both the original strings and the constructed Aho-Corasick automaton have disappeared. Little A only remembers that the lengths of all original strings do not exceed $d$, and that the constructed Aho-Corasick automaton has $n$ vertices and a character set of $\{1,2,\cdots,m\}$.
+
+Now, Little A wants to know how many different Aho-Corasick automatons could possibly be the one he constructed. Since the answer can be large, you only need to find the result modulo $998244353$.
+
+The Aho-Corasick automaton is defined as follows:
+
+1.  A Trie $T$ is a rooted tree without labels, where each edge is labeled with a character. A vertex $x$ in the Trie cannot have two child vertices $y$ and $z$ such that the edges $(x, y)$ and $(x, z)$ are labeled with the same character.
+2.  Given a Trie $T$ with root $r$, for a vertex $x$, the string represented by $x$ is the concatenation of the characters on the edges from $r$ to $x$. In particular, the string represented by $r$ is the empty string. It can be proven that no two different vertices represent the same string.
+3.  We say that a string $S$ exists in Trie $T$ if and only if there exists a vertex $x$ such that the string represented by $x$ is $S$.
+4.  Constructing a Trie $T$ for some strings $S_1,S_2,\cdots,S_k$ means finding a Trie $T$ with the minimum number of vertices such that all strings $S_i$ exist in Trie $T$. It can be proven that such a Trie is unique when unlabeled.
+5.  The fail tree $F$ of Trie $T$ is a tree with root $r$. Define $S_x$ as the string represented by vertex $x$. For a non-root vertex $x$, let $U$ be the longest proper suffix of $S_x$ (a proper suffix is one that is not equal to $S_x$) such that $U$ exists in $T$. Then, $fail_x$ is defined as the vertex such that $S_{fail_x} = U$. Note that the empty suffix of $S_x$ always exists in $T$, so $fail_x$ always exists. The edge set of $F$ is $\{(x, fail_x) | x \in [1, n], x \neq r\}$. It can be proven that these edges form a tree.
+6.  Merging Trie $T$ and its fail tree $F$ means that the vertex set remains unchanged (the vertex sets of $T$ and $F$ are the same), and the edges and the characters on the edges are merged to obtain the graph, which is the Aho-Corasick automaton $A$ of Trie $T$. At this point, $A$ contains both edges labeled with characters and edges without labels.
+
+Two Aho-Corasick automatons are considered the same if and only if they have the same number of vertices and there exist two labeling schemes for the vertices (let's assume they are two permutations of length equal to the number of vertices) such that:
+
+1.  The roots of the two Aho-Corasick automatons are the same.
+2.  For any pair of vertices $x,y$, either there is no edge between $x$ and $y$ in both Aho-Corasick automatons, or there is an edge in both and the characters on the edges are the same, or both edges do not have labels.
+
+**Input**
+
+A single line containing three integers $n,m,d$ ($1\leq n,m,d\leq 100$), representing the number of vertices in the Aho-Corasick automaton, the size of the character set, and the upper limit on the lengths of all strings.
+
+**Output**
+
+A single line containing an integer representing the answer.
+
+Example Input：
+3 2 2
+Example Output：
+5
+
+###
+
+(C)
+Given a string $S$ composed of uppercase letters, please rearrange the order of the characters in $S$ such that the substring CCPC appears as many times as possible as a contiguous substring. You are to determine the maximum possible number of occurrences of CCPC.
+
+**Input**
+
+A single line containing a string $S$ composed of uppercase letters $(1 \leq |S| \leq 10^6)$.
+
+**Output**
+
+Output a single integer, representing the maximum possible number of occurrences of CCPC.
+
+Example Input：
+ABCDCPCPC
+Example Output:
+1
+
+###
+
+(D)
+Little H has a permutation $P$, and he wants to split $P$ into sequence $A$ and sequence $B$.
+
+Specifically, Little H will take several elements from $P$ in order and place them into sequence $A$, while the remaining elements will form another sequence $B$ in order.
+
+For example, if $P = [1,2,3,4,5]$, he can split $P$ into $A = [1,3,5], B = [2,4]$.
+
+He is very fond of increasing subsequences and decreasing subsequences. Define $f(A)$ as the length of the longest increasing subsequence of $A$, and $g(B)$ as the length of the longest decreasing subsequence of $B$. You need to tell him the maximum value of $f(A) + g(B)$.
+
+**Input**
+
+The first line contains a positive integer $T$ $(1 \leq T \leq 2\cdot 10^5)$, indicating the number of test cases.
+
+For each test case, the first line contains an integer $n$ $(1 \leq n \leq 2 \times 10^5)$, representing the length of the permutation $P$.
+
+The second line contains $n$ integers $P_1,P_2,\ldots ,P_n$ $(1\leq P_i \leq n)$, ensuring that $P_i$ is a permutation.
+
+The sum of $n$ across all test cases does not exceed $2\cdot 10^5$.
+
+**Output**
+
+For each test case, output a single line containing an integer, representing the maximum value of $f(A) + g(B)$.
+
+Example Input1：
+5
+3 5 1 4 2
+Example Output1：
+4
+
+Example Input2：
+4
+1 2 4 3
+Example Output2：
+4
+
+Example Input3：
+5
+3 5 2 1 4
+Example Output3：
+5
+
+###
+
+(E)
+Given a rooted tree with $n$ nodes, rooted at $1$, which satisfies the property $p_i &lt; i$, where $p_i$ is the parent node of $i$.
+
+For each node $u$, for all its children $v$, we will provide the index of the centroid of the new tree formed by **only considering $v$ and the nodes in the subtree of $v$**, noting that we will not give you the index of $v$. If a tree has two centroids, we will tell you the one that is deeper in the original tree. Your task is to construct a tree that satisfies the above conditions.
+
+The centroid of a tree: If a certain node is chosen and removed from the tree, the tree will be divided into several subtrees. The number of nodes in each subtree is counted, and the maximum value is recorded. The node for which this maximum value is minimized when considering all nodes in the tree is called the centroid of the entire tree.
+
+**Input**
+
+The first line contains an integer $T$ $(1 \leq T \leq 10^5)$, representing the number of test cases.
+
+For each test case, the first line contains an integer $n$ $(2\leq n \leq 2\cdot 10^5)$, representing the number of nodes in the tree.
+
+The next $n$ lines provide first an integer $c_i$ $(1\leq c_i\leq n)$, representing the number of children of node $i$, followed by $c_i$ integers $p_{i,j}$ $(1\leq p_{i,j}\leq n)$, representing the index of the centroid of the tree formed by the $j$\-th child of $i$ and the nodes in its subtree.
+
+The sum of $n$ across all test cases does not exceed $2\cdot 10^5$.
+
+**Output**
+
+For each test case, output $n-1$ lines. The $i$\-th line should output two integers $u,v$ $(1\leq u,v \leq n, u\neq v)$, representing an edge $(u,v)$ in the tree.
+
+The test data guarantees a solution. If there are multiple valid solutions, any one of them is acceptable.
+
+Example Input1：
+4
+2 3 4
+1 3
+0
+0
+Example Output1：
+2 3
+1 2
+1 4
+
+Example Input2：
+3
+1 3
+1 3
+0
+Example Output2：
+2 3
+1 2
+
+###
+
+(F)
+Little A has a sequence of positive integers of length $n$, denoted as $a_1, a_2, \cdots, a_n$. He wishes to create another sequence of positive integers of length $n$, denoted as $d_1, d_2, \cdots, d_n$, such that $d_i$ is a divisor of $a_i$.
+
+It is evident that $d_1, d_2, \cdots, d_n$ are not unique, so Little A hopes that the product of $d_1, d_2, \cdots, d_n$ is a perfect square $x = y^2$, where $y$ is a positive integer.
+
+However, at this point, $d_1, d_2, \cdots, d_n$ are still not unique. Therefore, Little A wants to know the sum of $y$, the square root of the product for all possible combinations of $d_1, d_2, \cdots, d_n$ that yield a perfect square $x = y^2$, modulo $10^9 + 7$.
+
+**Input**
+
+The first line contains an integer $n$ ($1 \leq n \leq 10^6$) representing the length of the positive integer sequence.
+
+The second line contains $n$ integers $a_1, a_2, \cdots, a_n$ ($1 \leq a_i \leq 10^6$), representing the positive integer sequence.
+
+**Output**
+
+Output a single line containing an integer representing the answer.
+
+Example Input1：
+2
+4 4
+Example Output1：
+11
+
+**Note**
+
+Possible cases include $1 \times 1 = 1, 1 \times 2 = 2, 1 \times 4 = 4, 2 \times 1 = 2, 2 \times 2 = 4, 2 \times 4 = 8, 4 \times 1 = 4, 4 \times 2 = 8, 4 \times 4 = 16$.
+
+Among these, the products that are perfect squares are $1 \times 1 = 1, 1 \times 4 = 4, 2 \times 2 = 4, 4 \times 1 = 4, 4 \times 4 = 16$.
+
+The answer is equal to $\sqrt{1} + \sqrt{4} + \sqrt{4} + \sqrt{4} + \sqrt{16} = 1 + 2 + 2 + 2 + 4 = 11$.
+
+
+###
+
+(G)
+Given a non-negative integer sequence $a$ of length $n$ and a constant value $k$.
+
+Determine how many integers $x$ satisfy $x \in [0,k]$, such that $a_1 \oplus x, a_2 \oplus x, \ldots, a_n \oplus x$ forms a non-decreasing sequence.
+
+Here, $\oplus$ denotes the XOR operation.
+
+**Input**
+
+The first line contains a positive integer $T$ $(1 \leq T \leq 2\cdot 10^5)$, indicating the number of test cases.
+
+For each test case, the first line contains two integers $n,k$ $(1 \leq n \leq 2\cdot 10^5, 0 \leq k \leq 10^{18})$.
+
+The second line contains $n$ non-negative integers $a_1, a_2, \ldots, a_n$ $(0 \leq a_i \leq 10^{18})$.
+
+The sum of $n$ across all test cases does not exceed $2\cdot 10^5$.
+
+**Output**
+
+For each test case, output a single line containing an integer representing the count of integers $x$ that satisfy the conditions.
+
+Example Input：
+4 17
+3 2 5 16
+Example Output：
+4
+
+###
+
+(H)
+Little A has a string that only contains the characters 0 and 1 (hereafter referred to as a 01 string). He likes 1 and dislikes 0, so in Little A's eyes, there are only 1s in a 01 string.
+
+Specifically, for a 01 string, Little A sees 0 as a separator that divides the string into several substrings consisting entirely of 1s. For example, for a 01 string 010011101111101, Little A sees four substrings that consist only of 1s: 1, 111, 11111, and 1.
+
+For a 01 string, Little A defines its charm value as the sum of the square roots of the lengths of the separated substrings that consist entirely of 1s. For example, for the string 010011101111101, Little A's charm value is $\sqrt{1}+\sqrt{3}+\sqrt{5}+\sqrt{1}=2+\sqrt{3}+\sqrt{5}$.
+
+Now, given a 01 string $s$, Little A hopes you can change some of the 1s in $s$ to 0s (or leave them unchanged) to maximize the charm value of this 01 string.
+
+**Input**
+
+A single line containing a string $s$ that consists only of the characters 0 and 1 ($1\leq |s|\leq 10^6$).
+
+**Output**
+
+A single line containing a floating-point number that represents the maximum charm value that can be obtained after the changes. Your answer is considered correct if the relative or absolute error compared to the standard answer does not exceed $10^{-9}$.
+
+Assuming your answer is $a$ and the standard answer is $b$, it is considered correct if $\frac{|a-b|}{\max\{b,1\}}\leq 10^{-9}$.
+
+Example Input：
+1100110111
+Example Output：
+4.8284271247
+
+**Note**
+
+Changing the 9th 1 to 0 will yield the maximum charm value of $2+2\sqrt{2}$.
+
+###
+
+(M)
+Given a tree with $n$ nodes, you can use several line segments of arbitrary lengths to cover all the edges of the tree, with the following requirements:
+
+1.  Each edge must be covered exactly once;
+2.  Each line segment must start from a leaf node and end at one of its ancestor nodes.
+
+You can choose any number of line segments such that these segments can cover the entire tree according to the above requirements, but you need to minimize the maximum length of the segments. Your task is to find this minimum value.
+
+**Input**
+
+The first line contains an integer $T$ $(1 \le T \le 10^5)$, representing the number of test cases.
+
+For each test case, the first line contains an integer $n$ $(2 \le n \le 2\cdot 10^5)$, representing the total number of nodes in the tree.
+
+The second line contains $n-1$ integers $p_2, p_3, \ldots , p_n$ $(1 \le p_i &lt; i)$, where $p_i$ represents the index of the parent node of node $i$.
+
+It is guaranteed that the sum of $n$ across all test cases does not exceed $2 \cdot 10^5$.
+
+**Output**
+
+For each test case, output a single integer on a new line, representing the minimum possible maximum length of the line segments.
+
+Example Input1：
+8
+1 2 3 2 5 1 7
+Example Output1：
+3
+
+Example Input2：
+8
+1 2 3 4 5 6 7
+Example Output2：
+7
+
+
+**Note**
+
+For the first sample test case, the illustration is as follows. The red, green, and blue segments represent three line segments with lengths of 2, 3, and 2, respectively.

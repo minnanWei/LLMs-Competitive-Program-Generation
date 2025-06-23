@@ -1,0 +1,394 @@
+(A)
+Define an "arrow string" as a string that meets the following conditions:
+
+-   The length of the string is at least $5$.
+-   The string starts with \> and ends with \>\>\>.
+-   The rest of the string consists only of \-.
+
+For example, \>\-\-\>\>\> and \>\-\-\-\>\>\> are valid arrow strings, while \>\-\>\> and \>\-\>\-\>\>\> are not.
+
+Sauden gives you a string $s$ of length $n$, consisting of \> and \-. You need to create $s$ by performing a series of painting operations on a string of the same length $n$ that consists entirely of \*. In one painting operation, you can choose a substring of length at least $5$ and transform it into an arrow string. The total number of operations you perform cannot exceed $n$.
+
+If it is impossible to obtain the string $s$ using no more than $n$ painting operations, output $\texttt{No}$. Otherwise, output $\texttt{Yes}$ and provide the details of the painting operations. If there are multiple solutions, output any.
+
+**Input**
+
+The first line contains a single integer $T$ ($1\le T\le 10^4$), indicating the number of test cases.
+
+Each test case contains a string $s$ of length $n$ ($5 \le n \le 10^5$) in a single line, consisting only of \> and \-.
+
+It is guaranteed that the sum of $n$ over all test cases does not exceed $5 \cdot 10^5$.
+
+**Output**
+
+For each test case, if the given string cannot be obtained by performing no more than $n$ painting operations, output $\texttt{No}$ in a single line. Otherwise, output $\texttt{Yes}$ and a positive integer $m$ ($1 \le m \le n$), which denotes the number of painting operations to perform. Then output $m$ lines, each contains two integers $p$ ($1\le p\le n-4$) and $l$ ($5\le l\le n+1-p$), indicating the starting position of the selected substring and its length.
+
+Example Input1：
+4
+>>->>>
+>>>->
+>>>>>
+>->>>>>>
+
+Example Output1：
+Yes 2
+1 5
+2 5
+No
+No
+Yes 2
+2 7
+1 5
+
+**Note**
+
+For the fourth test case in the example, the painting process is shown below::
+
+\*\*\*\*\*\*\*\* $\rightarrow$ \*\>\-\-\-\>\>\> $\rightarrow$ \>\-\>\>\>\>\>\>
+
+###
+
+(B)
+Chengdu is about to host the 2025 World Games. During the athlete welcome ceremony at the opening event, there will be $n$ volunteers dressed in one of three different types of traditional folk costumes, lined up to welcome the athletes. These costumes are denoted by type $\texttt{a}$, $\texttt{b}$, and $\texttt{c}$. The positions of the volunteers have been determined, and now we need to assign costumes to the volunteers. To achieve a specific visual effect, adjacent volunteers must not wear the same type of costume.
+
+Among the $n$ volunteers, some already have one of the three types of folk costumes, while others do not have any and require custom-made costumes provided by the organizers. There are $Q$ custom-making plans, each specifying: making $x$ sets of costumes $\texttt{a}$, $y$ sets of costumes $\texttt{b}$, and $z$ sets of costumes $\texttt{c}$.
+
+For each custom-making plan, determine how many different valid costume arrangements can be made after distributing the custom-made costumes to the volunteers who do not have any costumes. Specifically, determine the number of ways for assigning costumes $\texttt{a}$, $\texttt{b}$ and $\texttt{c}$ under the condition of not exceeding the limits of the given plan. If two arrangements differ in the type of costume assigned to the same volunteer, they are considered different. Note that the same type of costumes are not distinguished from each other. As the number may be very large, please output the answer modulo $10^9+7$.
+**Input**
+
+The first line contains two integers $n$ ($1\le n\le 300$) and $Q$ ($1\le Q\le 10^5$), representing the number of volunteers and the number of custom-making plans, respectively.
+
+The second line is a string $s$ of length $n$. It is guaranteed that the string $s$ contains only the characters $\texttt{a}$, $\texttt{b}$, $\texttt{c}$, and $\texttt{?}$. If the $i$\-th character is one of $\texttt{a}$, $\texttt{b}$, and $\texttt{c}$, it indicates that the $i$\-th volunteer already has the corresponding costume; otherwise, if it is $\texttt{?}$, it indicates that the $i$\-th volunteer does not have any costume.
+
+Each of the next $Q$ lines contains three integers $x, y, z$ ($0 \le x, y, z \le 300$), representing a custom-making plan. It is guaranteed that the sum $x+y+z$ is no less than the number of volunteers without costumes.
+
+**Output**
+
+Output $Q$ lines, with the $i$\-th line containing an integer that represents the number of valid costume arrangements that satisfy the requirements for the $i$\-th custom-making plan. Please output the answer modulo $10^9+7$.
+
+Example Input1：
+6 3
+a?b??c
+2 2 2
+1 1 1
+1 0 2
+Example Output1：
+3
+1
+1
+
+Example Input2：
+6 3
+??????
+2 2 2
+2 3 3
+3 3 3
+Example Output2：
+30
+72
+96
+
+**Note**
+
+In the first sample, the valid costume arrangements for the first custom-making plan are $\texttt{acbabc}$, $\texttt{acbcac}$, and $\texttt{acbcbc}$.
+
+###
+
+(D)
+Blackbird has a permutation $p$ of length $n$. He wants to find a derangement $q$ of $p$, which means $q$ is another permutation of length $n$ satisfying $q_i\neq p_i$ for each $i=1,2,\ldots,n$. At the same time, $\sum_{i=1}^{n}|p_i-q_i|$ should be minimized. A permutation $q$ that satisfies the above conditions is called the closest derangement of $p$.
+
+There may be multiple closest derangements of $p$, and your task is to output the $k$\-th smallest closest derangement in lexicographical order. If there are fewer than $k$ closest derangements of $p$, output $-1$.
+
+A permutation of length $n$ refers to a sequence of length $n$ where all elements are distinct and are positive integers from $1$ to $n$. Permutations can be sorted in lexicographical order. Let $a$ and $b$ be two distinct permutations of length $n$. Then, $a &lt; b$ if and only if at the smallest index $i$ where $a_i \neq b_i$, it holds that $a_i &lt; b_i$.
+
+**Input**
+
+The first line contains an integer $T$ ($1\le T\le 10^4$), representing the number of test cases.
+
+For each test case, the first line contains two positive integers $n$ ($2\le n \le 2 \cdot 10^5$) and $k$ ($1\le k \le 10^9$). The second line contains $n$ positive integers $p_1, p_2, \ldots, p_n$, representing the permutation $p$.
+
+It is guaranteed that the sum of $n$ over all test cases does not exceed $10^6$.
+
+**Output**
+
+For each test case, if there are at least $k$ closest derangements, output $n$ positive integers $q_1, q_2, \ldots, q_n$ in a single line separated by spaces, representing the $k$\-th smallest closest derangement of $p$ in lexicographical order. Otherwise, output $-1$.
+
+Example Input1：
+2
+2 2
+2 1
+3 2
+1 2 3
+Example Output1：
+-1
+3 1 2 
+
+**Note**
+
+For the first test case, $[1,2]$ is the only closest derangement, so output $-1$.
+
+For the second test case, $[2,3,1]$ and $[3,1,2]$ are closest derangements of $p$, and $[3,1,2]$ is larger than $[2,3,1]$ in lexicographical order.
+
+###
+
+(E)
+The enemy has established communication outposts across several locations, which can be represented as nodes and edges in a network. This network forms a tree — a type of graph that is connected and has no cycles. As a specialist in communications engineering, your task is to disrupt their communications.
+
+Each communication occurs along a simple path between two nodes in the tree. You have the ability to select a subgraph of this tree and disrupt every node in that subgraph. If the communication path includes a disrupted node, the communication is successfully disrupted. The subgraph you select must consist of a subset of nodes and edges from the original tree, and it must be connected, meaning it is also a tree.
+
+The communication network consists of $n$ nodes, labeled from $1$ to $n$. Your mission involves answering $q$ separate queries. For each query, you are given two nodes, $u_i$ and $v_i$, and you must determine how many different subgraphs you can select to disrupt the communication between the two nodes. Since the number may be very large, you should provide the answer modulo $998244353$. It is possible that $u_i=v_i$, which indicates an internal communication within a node, and you are also able to disrupt it by selecting a subgraph that contains the node.
+
+**Input**
+
+The first line contains a single integer $T$ ($1\le T \le 10^4$), indicating the number of test cases.
+
+The first line of each test case contains two integers $n$ ($2\le n\le 10^5$) and $q$ ($1\le q \le 10^5$), denoting the number of nodes and the number of queries.
+
+The second line contains $n-1$ integers $p_2,p_3,\ldots ,p_n$ ($1\le p_i &lt; i$), indicating that nodes $i$ and $p_i$ are connected by an edge.
+
+Each of the next $q$ lines contains two integers $u_i,v_i$ ($1\le u_i,v_i \le n$), representing the $i$\-th query.
+
+It is guaranteed that the sum of $n$ and the sum of $q$ over all test cases do not exceed $3\cdot 10^5$, respectively.
+
+**Output**
+
+For each test case, output $q$ lines, each containing the result modulo $998244353$ for one of the $q$ queries.
+
+Example Input:
+2
+3 2
+1 1
+2 3
+1 2
+5 3
+1 1 2 2
+4 5
+2 4
+2 3
+Example Output：
+6
+5
+14
+13
+15
+
+**Note**
+
+In the first case of the example, $6$ connected subgraphs can be selected in total. For the first query, all of them can disrupt the communication. For the second query, $5$ of them can disrupt the communication; the exception is the subgraph consisting only of node $3$.
+
+###
+
+(G)
+Given an integer array $a_1, a_2, \ldots, a_n$ of length $n$, you can perform any number of operations on this array. In each operation, you can choose two adjacent elements $a_i$ and $a_{i+1}$ ($1 \le i &lt; n$), and insert one of the following three values between them: $a_i \ \texttt{and}\ a_{i+1}$, $a_i \ \texttt{or}\ a_{i+1}$, or $a_i \oplus a_{i+1}$. Your task is to determine the maximum number of distinct values that can exist in the array after performing any number of operations.
+
+**Note:** $x \ \texttt{and}\ y$ represents the bitwise AND of $x$ and $y$. $x \ \texttt{or}\ y$ represents the bitwise OR of $x$ and $y$. $x \oplus y$ represents the bitwise XOR (exclusive OR) of $x$ and $y$.
+
+**Input**
+
+The first line contains a single integer $n$ ($2 \le n \le 10^5$), representing the length of the array.
+
+The second line contains $n$ integers $a_1, a_2, \ldots, a_n$ ($0 \le a_i \le 10^9$), representing the elements of the array.
+
+**Output**
+
+Output a single integer, representing the maximum number of distinct values that can be obtained in the array after performing any number of operations.
+
+Example Input1：
+2
+2 3
+Example Output1：
+4
+
+Example Input2：
+2
+3 4
+Example Output2：
+4
+
+###
+
+(I)
+Lawliet has a sequence of numbers of length $n$, denoted as $a_1, a_2, \ldots, a_n$, and he wants to determine how many good partitions exist.
+
+A partition size $k$ is considered a good partition size if it satisfies $1 \leq k \leq n$ and, after dividing the sequence $a$ into parts by partition size, each resulting sub-sequence is non-decreasing. The partitioning method is as follows:
+
+-   The sequence $a$ is divided into $\lceil \frac{n}{k} \rceil$ parts.
+-   For the $i$\-th part ($1 \leq i \leq \lceil \frac{n}{k} \rceil - 1$), the elements are $a_{(i - 1) \times k + 1}, a_{(i - 1) \times k + 2}, \ldots, a_{i \times k}$.
+-   For the $\lceil \frac{n}{k} \rceil$\-th part, the elements are $a_{(\lceil \frac{n}{k} \rceil - 1) \times k + 1}, \ldots, a_n$. Note that the length of the last part may be less than $k$.
+
+Lawliet finds this problem too simple, so he will make $q$ modifications. Each modification provides two positive integers $p$ and $v$, indicating that the value of $a_p$ will be changed to $v$.
+
+Your task is to help Lawliet calculate the number of good partition sizes before any modifications and after each modification.
+
+**Input**
+
+The first line contains an integer $T$ ($1\le T \le 10$), representing the number of test cases.
+
+For each test case, the first line contains two integers $n$ ($1 \le n \le 2 \cdot 10^5$) and $q$ ($1 \le q \le 2 \cdot 10^5$), representing the length of the sequence and the number of modifications.
+
+The second line contains $n$ integers, representing the sequence $a_1, a_2, \ldots, a_n$ ($1\le a_i\le 2\cdot 10^9$).
+
+The following $q$ lines each contain two integers $p$ ($1 \le p \le n$) and $v$ ($1 \le v \le 2 \cdot 10^9$), indicating that the element at the $p$\-th position in the sequence will be modified to $v$.
+
+It is guaranteed that the sum of $n$ and the sum of $q$ over all test cases do not exceed $2\cdot 10^5$, respectively.
+
+**Output**
+
+For each test case, output $q + 1$ lines, representing the number of good partition sizes before any modifications and after each modification.
+
+Example Input：
+1
+5 2
+4 3 2 6 1
+2 5
+3 5
+Example Output：
+1
+2
+3
+
+**Note**
+
+Initially, the only good partition size is $k = 1$.
+
+After the first modification, the sequence becomes $[4, 5, 2, 6, 1]$. Both $k = 1$ and $k = 2$ are good partition sizes.
+
+After the second modification, the sequence becomes $[4, 5, 5, 6, 1]$. The good partition sizes are $k = 1$, $k = 2$, and $k = 4$.
+
+###
+
+(J)
+Ballance is a classic game where players use the keyboard to control a ball through complex structures high above the ground, avoiding falls while solving puzzles to reach the end of each level. Recently, the player community has developed online mods and hosts regular online competitions, such as the Grand Prix of Ballance.
+
+The Grand Prix consists of $n$ levels, numbered from $1$ to $n$, with $m$ participants, numbered from $1$ to $m$. The competition uses a point system: players earn points based on their ranking in each level, and the sum of their points across all levels determines the final standings. Each level has a designated start time, and participants must complete the level as quickly as possible. As a staff member, you receive a server log during the match containing three types of messages (it is guaranteed that $1\le x\le n$ and $1\le id\le m$):
+
+-   1 x — Type 1: the match on Level $x$ has started.
+-   2 id x — Type 2: participant indexed $id$ has completed Level $x$.
+-   3 id x — Type 3: participant indexed $id$ voluntarily gives up completing Level $x$.
+
+A Type 1 message indicates the start of Level $x$ until a new Type 1 message appears for a different level. Only messages that correspond to the currently active level are considered valid; all messages for other levels should be ignored. Messages before the first Type 1 message are also ignored. Each level appears at most once in a Type 1 message.
+
+Each player may yield multiple Type 2 and Type 3 messages per level, but only the first valid message counts. Specifically:
+
+-   Messages are ignored if they do not match the active level indicated by the Type 1 message.
+-   If a player's first valid message for a level is Type 2, they are considered to have completed the level successfully at that moment, and the player's any subsequent messages for that level are ignored.
+-   If a player's first valid message for a level is Type 3, they are considered to have given up completing the level at that moment, and the player's any subsequent messages for that level are ignored.
+-   If a player yields no messages for a level, they are considered not to have completed the level.
+
+Points are awarded to participants who complete the level as follows: the first player to complete the level receives $m$ points, the second receives $m-1$ points, and so on. Participants who do not complete the level, including those who give up, receive no points.
+
+Your task is to output the current total points of each participant in descending order based on the log. If multiple participants have the same points, they should be listed in ascending order by their index.
+
+**Input**
+
+The first line contains an integer $T$ ($1 \leq T \leq 10^4$), indicating the number of test cases.
+
+For each test case, the first line contains three integers $n$, $m$, and $q$ ($1 \leq n \leq 10^5$, $2 \leq m \leq 10^5$, $1 \leq q \leq 2 \cdot 10^5$), indicating the number of levels, participants, and log messages, respectively.
+
+The following $q$ lines contain the log messages as specified above. Of course, the messages are presented in chronological order. The log may not contain all levels, as you may receive it midway through the competition. You only need to process the current results.
+
+It is guaranteed that the sum of $n$, the sum of $m$, and the sum of $q$ over all test cases do not exceed $5 \cdot 10^5$, respectively.
+
+**Output**
+
+For each test case, output $m$ lines, each containing two integers: $id$ and $x$, where $id$ is the participant's index and $x$ is their total points, sorted in descending order of points. If multiple participants have the same points, list them in ascending order by their index.
+
+Example Input：
+3
+3 4 6
+1 2
+2 1 1
+2 2 2
+3 3 2
+2 3 2
+2 1 2
+3 4 8
+1 2
+2 1 1
+2 2 2
+3 3 2
+2 3 2
+2 1 2
+1 1
+2 1 1
+3 4 7
+1 2
+2 1 1
+2 2 2
+3 3 2
+2 3 2
+2 1 2
+1 1
+Example Output：
+2 4
+1 3
+3 0
+4 0
+1 7
+2 4
+3 0
+4 0
+2 4
+1 3
+3 0
+4 0
+
+###
+
+(K)
+You have a magical set that initially contains $n$ distinct integers. You discover that these numbers can generate energy by dividing into their factors. In each step, you can select any number greater than $1$ from the set, remove it, and insert one of its factors. The factor you insert must not be equal to the original number. Additionally, due to the instability of the magical set, your operation must ensure that the numbers in the set remain distinct.
+
+Each operation generates one unit of energy, and your goal is to maximize the total energy generated by performing as many operations as possible. Given the initial numbers in the set, determine the maximum amount of energy that can be generated, i.e., the maximum number of operations that can be performed.
+
+**Input**
+
+The first line contains an integer $n$ ($1 \le n \le 300$), indicating the number of integers in the initial set.
+
+The second line contains $n$ distinct integers $a_i$ ($1 \le a_i \le 10^9$), representing the numbers in the initial set.
+
+**Output**
+
+Output a single integer indicating the maximum amount of energy that can be generated, i.e., the maximum number of operations that can be performed.
+
+Example Input1：
+3
+2 4 6
+Example Output1：
+3
+
+Example Input2：
+6
+2 3 5 6 10 12
+Example Output2：
+3
+
+###
+
+(L)
+You recently conducted a survey on how much time university students spend commuting from their dorms to school buildings. You believe that this survey could significantly improve campus planning, making commuting easier for both students and faculty. As part of your analysis, you calculated the P50, P95, and P99 commute times to support your conclusions. Here, P$x$ commute time being $y$ means that **exactly** $x\%$ of the commute times in the entire dataset are less than or equal to $y$. For example, the P50 of the set $\{1, 1, 4, 5, 1, 4\}$ can be $1$, $2$ or $3$, since there are **exactly** $6 \times 50\% = 3$ values less than or equal to $1$, $2$ or $3$. However, there are no valid P95 or P99 for these values because $6 \times 95\%$ and $6 \times 99\%$ are not integers.
+
+Unfortunately, something went wrong — you accidentally deleted the entire dataset. The only values you have left are the P50, P95, and P99 of the commute times. Since you do not have time to redo the survey, you need to reconstruct a set of data that matches all of the P50, P95, and P99 values.
+
+**Input**
+
+The input consists of three lines. The first line contains a single integer $a$, representing the P50 value. The second line contains a single integer $b$, representing the P95 value. The third line contains a single integer $c$, representing the P99 value. ($1 \le a &lt; b &lt; c &lt; 10^9$)
+
+**Output**
+
+Output two lines. The first line should contain a single integer $n$ ($100 \le n \le 10^5$), representing the length of the data set.
+
+The second line should contain $n$ integers $a_1, a_2, \ldots, a_n$ ($1 \le a_i \le 10^9$), representing the reconstructed data set. The integers can be in any order. Any output that meets the requirements will be considered correct.
+
+Example Input：
+50
+95
+99
+Example Output：
+100
+1 2 ... 100
+
+**Note**
+
+The example output omits the values between $3$ and $99$ (inclusive) for display purposes. In your output, you must include all of these values.
+
+Please note that the definition of P$x$ values in this problem is different from the $x$\-th percentile.
