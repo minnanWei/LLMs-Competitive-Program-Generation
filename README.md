@@ -5,7 +5,7 @@ The benchmark and evaluating result for our research
 
 
 
-If you want to generate programs in batches using code, you should:
+If you want to generate programs in batches using code, 
 
 
 You can upload txt documents for batch generation of the program.
